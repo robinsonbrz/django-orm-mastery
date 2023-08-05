@@ -165,5 +165,59 @@ student -> Model
 objects -> Model manager
 filter  -> QuerysetApi Method
 
+###
+Queryset is a collection of objects from the database
+
+Retrieve objects from the database
+
+Here are some of the most commonly used Django queryset methods:
+
+all(): Returns all objects in the queryset.
+filter(): Returns objects that match the given filter criteria.
+exclude(): Returns objects that do not match the given filter criteria.
+order_by(): Returns objects in the specified order.
+distinct(): Returns unique objects in the queryset.
+reverse(): Returns objects in reverse order.
+len(): Returns the number of objects in the queryset.
+get(): Returns a single object from the queryset.
+save(): Saves the changes made to the queryset.
+
+aggregate(): Calculates aggregate values over the queryset.
+annotate(): Adds calculated fields to the queryset.
+dates(): Returns a queryset of dates that match the given filter criteria.
+datetimes(): Returns a queryset of datetimes that match the given filter criteria.
+none(): Returns a queryset that contains no objects.
+union(): Returns a queryset that contains all of the objects from the two given querysets.
+intersection(): Returns a queryset that contains only the objects that are in both of the given querysets.
+difference(): Returns a queryset that contains the objects that are in the first queryset but not in the second queryset.
+select_related(): Loads related objects eagerly.
+prefetch_related(): Loads related objects lazily.
+extra(): Adds extra fields to the queryset.
+defer(): Defers loading of certain fields.
+only(): Loads only certain fields.
+using(): Specifies the database to use for the queryset.
+select_for_update(): Locks the objects in the queryset for update.
+raw(): Executes a raw SQL query.
+
+###
+from testapp.models import Students
+Student.objects.all()
+
+The following code returns the query created by the last ORM operation
+from django.db import connection
+print(connection.queries)
+
+Student.objects.filter(firstname = "Eli")
+
+# Django ORM Backends
+Hosts  the DB Tables
+
+SQLite -> Pré Configured
+PostgresSql
+MariaDB
+MySql
+Oracle
+
+
 
 
