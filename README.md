@@ -218,6 +218,19 @@ MariaDB
 MySql
 Oracle
 
+# admin.py file
+receives config about fields and string representation that will be shown in django admin
+
+it is usefull to add __str__ of the model to show the object in a string representation  instead of a non readables set of characteres
+
+def __str__(self):
+    return f"Name: {self.name}"
+
+
+# Model verbose name field
+is a human readable name to the field
+
+
 
 
 
