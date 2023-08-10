@@ -26,3 +26,11 @@ class Product(models.Model):
 class Stock(models.Model):
     units = models.BigIntegerField()
     product = models.OneToOneField(Product, on_delete=models.CASCADE)
+
+class Product2(models.Model):
+    name = models.CharField(max_length=10)
+    price = models.DecimalField(max_digits=5, decimal_places=2)
+    date_added = models.DateTimeField(auto_now_add=True) # When record is created
+    date_updated = models.DateTimeField(auto_now_add=True)  # every time the record is updated
+    url = models.SlugField()
+    is_active = models.BooleanField()

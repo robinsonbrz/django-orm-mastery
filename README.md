@@ -230,6 +230,14 @@ def __str__(self):
 # Model verbose name field
 is a human readable name to the field
 
+# Field types
+field names simple and lower case
+if they are multiple words use underscore to separate
+Leads to fewer mistakes
+Consistency
+
+
+
 
 
 
