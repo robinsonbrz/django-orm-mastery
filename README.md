@@ -236,6 +236,16 @@ if they are multiple words use underscore to separate
 Leads to fewer mistakes
 Consistency
 
+# Field options
+Can be specific
+But there are some important field options like:
+    null=True # allows to store empty values     by default it is false
+    blank=True # allows to store "" string       by default it is false
+    default="default value"
+    help_text="auxiliary text" in admin you can view bellow the field, can be used in personalized forms
+
+
+
 
 
 
