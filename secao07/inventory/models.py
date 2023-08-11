@@ -1,6 +1,7 @@
 from django.db import models
 
 class Brand(models.Model):
+    # user defined id => auto increment number
     brand_id = models.BigAutoField(primary_key=True)
     name = models.CharField(max_length=50)
 

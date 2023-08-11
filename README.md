@@ -284,6 +284,27 @@ Exemplo.objects.filter(situacao="Conservada").values_list('observacao', flat=Tru
 Exemplo.objects.filter(situacao="Conservada").values_list('observacao')
 <QuerySet [('observacao base',)]>
 
+# primary key
+brand_id = models.BigAutoField(primary_key=True)
+
+Foreign Keys
+    Many to One Relation
+    Example Product and category
+    On the table Product we have a category(fk)
+    One product One Category
+    One Category many products
+
+class Category(models.Model):
+    name = models.CharField(max_length=50)
+
+class Product(models.Model):
+    the_name = models.CharField("Product Name", max_length=100, default="no-name", 
+    category = models.ForeignKey(Category, on_delete=models.CASCADE)
+
+on_delete defines the behavior when deleting a category
+When defining models.CASCADE when you delete a category it will delete all Products related to this category (This is dangerous and can delete undesirable data)
+
+on_delete=models.PROTECTED prevent delete category until all the products related to this category have been deleted
 
 
 
