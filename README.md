@@ -248,6 +248,41 @@ But there are some important field options like:
 
 
 
+https://docs.djangoproject.com/en/4.2/ref/models/querysets/
+# lookup fields
+
+In Django, a lookup field is a way to filter a QuerySet based on the value of a particular field. For example, you could use the exact lookup field to filter a QuerySet of books to only include books with the title "The Lord of the Rings".
+
+The syntax for a lookup field is as follows:
+
+field_name__lookup_type=value
+For example, the following code will filter a QuerySet of books to only include books with the title "The Lord of the Rings":
+
+Python
+qs = Book.objects.filter(title__exact="The Lord of the Rings")
+Use code with caution. Learn more
+Here is a list of the most common lookup fields in Django:
+
+exact: The value must match exactly.
+iexact: The value must match exactly, ignoring case.
+contains: The value must be contained in the field.
+icontains: The value must be contained in the field, ignoring case.
+startswith: The value must start with the field.
+istartswith: The value must start with the field, ignoring case.
+endswith: The value must end with the field.
+iendswith: The value must end with the field, ignoring case.
+in: The value must be one of the values in the list.
+gt: The value must be greater than the given value.
+gte: The value must be greater than or equal to the given value.
+lt: The value must be less than the given value.
+lte: The value must be less than or equal to the given value.
+You can also use custom lookup fields by creating a subclass of the Lookup class.
+
+
+Exemplo.objects.filter(situacao="Conservada").values_list('observacao', flat=True)
+<QuerySet ['observacao base']>
+Exemplo.objects.filter(situacao="Conservada").values_list('observacao')
+<QuerySet [('observacao base',)]>
 
 
 
