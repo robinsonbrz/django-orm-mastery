@@ -306,5 +306,15 @@ When defining models.CASCADE when you delete a category it will delete all Produ
 
 on_delete=models.PROTECTED prevent delete category until all the products related to this category have been deleted
 
+titles = Book.objects.all().values_list('title', flat=True)
+['Title 1', 'Title 2', 'Title 3', ...]
+
+titles = Book.objects.all().values_list('title')
+[('Title 1',), ('Title 2',), ('Title 3',), ...]
+
+
+
+
+
 
 
