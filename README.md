@@ -1,18 +1,16 @@
 https://www.gilenofilho.com.br/como-funciona-o-orm-do-django/
 # django-orm-mastery
-```
+``` bash
 python -m venv .venv   
-
 source .venv/bin/activate  
-
 ```
 pypi 
-```
+
+``` bash
 pip install
 pip uninstall
 pip list
 pip freeze
-
 
 pip install Django==4.1.1        
 python -m pip install --upgrade pip
@@ -22,32 +20,37 @@ pip freeze > requirements.txt
 
 - Install project from a previous requirements file
 Should activate env first
+``` bash
 source .venv/bin/activate  
-
 pip install -r requirements.txt 
+```
 
 Create a new Django project
-```
+
+``` bash
 django-admin startproject core .
 ```
 In this experiemnt core is the name of the project
 with . creates the core folder in the root folder
 without it creates a folder named core and another core folder inside it
 
-
+``` bash
 pip install python-decouple 
+```
 
+``` Python
 settings.py
 from decouple import config
 
 SECRET_KEY = config('SECRET_KEY')
 DEBUG = config('DEBUG')
-
+```
 - Create a new app inside core folder
 mkdir ./core/newapp                      
 ./manage.py startapp newapp ./core/newapp
 
 - After create an app it is necessary to register the application in settings.py
+``` Python
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -57,14 +60,14 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'newapp',
 ]
-
+```
 
 - first migration
 ./manage.py migrate
 
 - create a unique URL pattern
 inside core (project folder) include the path to the urls of the newapp
-
+``` Python
 from django.contrib import admin
 from django.urls import path, include
 
@@ -80,14 +83,16 @@ from . import views
 urlpatterns = [
     path('', views.home),
 ]
-
+```
 
 - create a view in newapp folder
+``` Python
 from django.shortcuts import render
 from django.http import HttpResponse
 
 def home(request):
     return HttpResponse("Hello World!")
+```
 
 - Django look for templates in some standard folders.
 So lets create a template folder inside newapp
@@ -104,35 +109,33 @@ And create an html file inside
 #####
 ORM can be describe as libraies
 
-The four building blocks of Django ORM are:
+##The four building blocks of Django ORM are:
 
-Models/Fields: 
+###Models/Fields: 
 Models are the core of Django ORM. 
 Models are defined in Python classes. 
 They represent the tables in your database and define the fields that are stored in those tables.
 The fields in a model class are defined using the Field class.
 
-
-
-Managers: Managers are objects that provide access to the data in your models. 
+###Managers: Managers are objects that provide access to the data in your models. 
 They allow you to perform CRUD (create, read, update, delete) operations on your data.
 The objects manager is the default manager for all models. 
 It provides basic CRUD operations on your data. 
 You can also create custom managers to provide more specialized access to your data.
 
 
-QuerySets: QuerySets are objects that represent a set of records from your database. 
+###QuerySets: QuerySets are objects that represent a set of records from your database. 
 They allow you to filter, sort, and slice your data.
 They are created using the Model.objects.all() method.
 You can then use filters, sorts, and slices to manipulate your data.
 
-Backend (databases systems)
+###Backend (databases systems)
 Relationships: 
 Relationships allow you to connect different models together. 
 This makes it easy to represent complex relationships between data in your database.
 There are three types of relationships in Django ORM: one-to-one, one-to-many, and many-to-many.
 
-##
+###Fields
 AutoField: This field automatically increments its value for each new record.
 BooleanField: This field stores a Boolean value.
 CharField: This field stores a string of text.
@@ -167,11 +170,11 @@ objects -> Model manager
 filter  -> QuerysetApi Method
 
 ###
-Queryset is a collection of objects from the database
+**Queryset** is a collection of objects from the database
 
 Retrieve objects from the database
 
-Here are some of the most commonly used Django queryset methods:
+Here are some of the most commonly used Django **queryset methods:**
 
 all(): Returns all objects in the queryset.
 filter(): Returns objects that match the given filter criteria.
@@ -210,7 +213,7 @@ print(connection.queries)
 
 Student.objects.filter(firstname = "Eli")
 
-# Django ORM Backends
+### Django ORM Backends
 Hosts  the DB Tables
 
 SQLite -> Pré Configured
@@ -219,7 +222,7 @@ MariaDB
 MySql
 Oracle
 
-# admin.py file
+### admin.py file
 receives config about fields and string representation that will be shown in django admin
 
 it is usefull to add __str__ of the model to show the object in a string representation  instead of a non readables set of characteres
@@ -228,16 +231,16 @@ def __str__(self):
     return f"Name: {self.name}"
 
 
-# Model verbose name field
+### Model verbose name field
 is a human readable name to the field
 
-# Field types
+### Field types
 field names simple and lower case
 if they are multiple words use underscore to separate
 Leads to fewer mistakes
 Consistency
 
-# Field options
+### Field options
 Can be specific
 But there are some important field options like:
     null=True # allows to store empty values     by default it is false
@@ -248,9 +251,8 @@ But there are some important field options like:
 
 
 
-
 https://docs.djangoproject.com/en/4.2/ref/models/querysets/
-# lookup fields
+### lookup fields
 
 In Django, a lookup field is a way to filter a QuerySet based on the value of a particular field. For example, you could use the exact lookup field to filter a QuerySet of books to only include books with the title "The Lord of the Rings".
 
@@ -264,19 +266,19 @@ qs = Book.objects.filter(title__exact="The Lord of the Rings")
 Use code with caution. Learn more
 Here is a list of the most common lookup fields in Django:
 
-exact: The value must match exactly.
-iexact: The value must match exactly, ignoring case.
-contains: The value must be contained in the field.
-icontains: The value must be contained in the field, ignoring case.
-startswith: The value must start with the field.
-istartswith: The value must start with the field, ignoring case.
-endswith: The value must end with the field.
-iendswith: The value must end with the field, ignoring case.
-in: The value must be one of the values in the list.
-gt: The value must be greater than the given value.
-gte: The value must be greater than or equal to the given value.
-lt: The value must be less than the given value.
-lte: The value must be less than or equal to the given value.
+**exact**: The value must match exactly.
+**iexact**: The value must match exactly, ignoring case.
+**contains**: The value must be contained in the field.
+**icontains**: The value must be contained in the field, ignoring case.
+**startswith**: The value must start with the field.
+**istartswith**: The value must start with the field, ignoring case.
+**endswith**: The value must end with the field.
+**iendswith**: The value must end with the field, ignoring case.
+**in**: The value must be one of the values in the list.
+**gt**: The value must be greater than the given value.
+**gte**: The value must be greater than or equal to the given value.
+**lt**: The value must be less than the given value.
+**lte**: The value must be less than or equal to the given value.
 You can also use custom lookup fields by creating a subclass of the Lookup class.
 
 
@@ -285,11 +287,12 @@ Exemplo.objects.filter(situacao="Conservada").values_list('observacao', flat=Tru
 Exemplo.objects.filter(situacao="Conservada").values_list('observacao')
 <QuerySet [('observacao base',)]>
 
-# primary key
+### primary key Relationship
+``` Python
 brand_id = models.BigAutoField(primary_key=True)
-
+```
 Foreign Keys
-    Many to One Relation
+    **Many to One Relation**
     Example Product and category
     On the table Product we have a category(fk)
     One product One Category
@@ -304,8 +307,8 @@ class Product(models.Model):
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
 ```
 
-on_delete defines the behavior when deleting a category
-When defining models.CASCADE when you delete a category it will delete all Products related to this category (This is dangerous and can delete undesirable data)
+**on_delete** defines the behavior when deleting a category
+When defining models.CASCADE when you delete a category **it will delete all** Products related to this category (This is dangerous and can delete undesirable data)
 
 on_delete=models.PROTECTED prevent delete category until all the products related to this category have been deleted
 ``` Python
@@ -318,7 +321,41 @@ titles = Book.objects.all().values_list('title')
 ```
 [('Title 1',), ('Title 2',), ('Title 3',), ...]
 
-# One to One Relationship
+https://books.agiliq.com/projects/django-orm-cookbook/en/latest/one_to_many.html
+
+In relational databases, a one-to-many relationship occurs when a parent record in one table can potentially reference several child records in another table. In a one-to-many relationship, the parent is not required to have child records; therefore, the one-to-many relationship allows zero child records, a single child record or multiple child records. To define a many-to-one relationship, use ForeignKey.:
+
+
+``` Python
+class Article(models.Model):
+    headline = models.CharField(max_length=100)
+    pub_date = models.DateField()
+    reporter = models.ForeignKey(User, on_delete=models.CASCADE, related_name='reporter')
+
+    def __str__(self):
+        return self.headline
+
+    class Meta:
+        ordering = ('headline',)
+
+>>> u1 = User(username='johny1', first_name='Johny', last_name='Smith', email='johny@example.com')
+>>> u1.save()
+>>> u2 = User(username='alien', first_name='Alien', last_name='Mars', email='alien@example.com')
+>>> u2.save()
+>>> from datetime import date
+>>> a1 = Article(headline="This is a test", pub_date=date(2018, 3, 6), reporter=u1)
+>>> a1.save()
+>>> a1.reporter.id
+13
+>>> a1.reporter
+<User: johny1>
+
+```
+If you try to assign an object before saving it you will encounter a ValueError
+
+
+
+### One to One Relationship
 In this case one Stock is related to one Product
 And the product is related to one Stock
 No more than one to one
@@ -330,8 +367,37 @@ class Stock(models.Model):
     units = models.BigIntegerField()
     product = models.OneToOneField(Product, on_delete=models.CASCADE)
 ```
+https://books.agiliq.com/projects/django-orm-cookbook/en/latest/one_to_one.html
 
-# Many to Many Relationship
+One-to-one relationships occur when there is exactly one record in the first table that corresponds to one record in the related table. Here we have an example where we know that each individual can have only one Biological parents i.e., Mother and Father. We already have auth user model with us, we will add a new model UserParent as described below.
+
+``` Python
+
+from django.contrib.auth.models import User
+
+class UserParent(models.Model):
+    user = models.OneToOneField(
+        User,
+        on_delete=models.CASCADE,
+        primary_key=True,
+    )
+    father_name = models.CharField(max_length=100)
+    mother_name = models.CharField(max_length=100)
+
+>>> u1 = User.objects.get(first_name='Ritesh', last_name='Deshmukh')
+>>> u2 = User.objects.get(first_name='Sohan', last_name='Upadhyay')
+>>> p1 = UserParent(user=u1, father_name='Vilasrao Deshmukh', mother_name='Vaishali Deshmukh')
+>>> p1.save()
+>>> p1.user.first_name
+'Ritesh'
+>>> p2 = UserParent(user=u2, father_name='Mr R S Upadhyay', mother_name='Mrs S K Upadhyay')
+>>> p2.save()
+>>> p2.user.last_name
+'Upadhyay'
+``` 
+
+
+### Many to Many Relationship
 Python ORM creates a intermediary (link) table to connect multiple tables
 The intermediary table has 2 foreign keys
 This is automatically created by Django
@@ -347,7 +413,7 @@ class Product(models.Model):
     category = models.ManyToManyField(Category)
 ```
 
+https://books.agiliq.com/projects/django-orm-cookbook/en/latest/many_to_many.html
 
-
-
+A many-to-many relationship refers to a relationship between tables in a database when a parent row in one table contains several child rows in the second table, and vice versa.
 
