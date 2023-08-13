@@ -1,3 +1,4 @@
+https://www.gilenofilho.com.br/como-funciona-o-orm-do-django/
 # django-orm-mastery
 ```
 python -m venv .venv   
@@ -294,25 +295,57 @@ Foreign Keys
     One product One Category
     One Category many products
 
+``` Python
 class Category(models.Model):
     name = models.CharField(max_length=50)
 
 class Product(models.Model):
     the_name = models.CharField("Product Name", max_length=100, default="no-name", 
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
+```
 
 on_delete defines the behavior when deleting a category
 When defining models.CASCADE when you delete a category it will delete all Products related to this category (This is dangerous and can delete undesirable data)
 
 on_delete=models.PROTECTED prevent delete category until all the products related to this category have been deleted
-
+``` Python
 titles = Book.objects.all().values_list('title', flat=True)
+```
 ['Title 1', 'Title 2', 'Title 3', ...]
 
+``` Python
 titles = Book.objects.all().values_list('title')
+```
 [('Title 1',), ('Title 2',), ('Title 3',), ...]
 
+# One to One Relationship
+In this case one Stock is related to one Product
+And the product is related to one Stock
+No more than one to one
+``` Python
+class Product(models.Model):
+    name = models.CharField("Product Name", max_length=100, default="no-name", 
 
+class Stock(models.Model):
+    units = models.BigIntegerField()
+    product = models.OneToOneField(Product, on_delete=models.CASCADE)
+```
+
+# Many to Many Relationship
+Python ORM creates a intermediary (link) table to connect multiple tables
+The intermediary table has 2 foreign keys
+This is automatically created by Django
+
+Multiple categories can connect to multiple productcs
+
+``` Python
+class Category(models.Model):
+    name = models.CharField(max_length=50)
+
+class Product(models.Model):
+    name = models.CharField("Product Name", max_length=100, default="no-name")
+    category = models.ManyToManyField(Category)
+```
 
 
 
