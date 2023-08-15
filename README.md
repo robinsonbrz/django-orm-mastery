@@ -417,3 +417,31 @@ https://books.agiliq.com/projects/django-orm-cookbook/en/latest/many_to_many.htm
 
 A many-to-many relationship refers to a relationship between tables in a database when a parent row in one table contains several child rows in the second table, and vice versa.
 
+# Model Meta Options
+
+Django Model Meta Options are a set of attributes that can be used to customize the behavior of a Django model. These options can be used to control the name of the database table, the ordering of the fields, and the permissions that are granted to users.
+
+Here are some of the most common Django Model Meta Options:
+
+**db_table:** This option specifies the name of the database table that will be used to store the model data. By default, the database table name is generated from the model class name.
+**ordering:** This option specifies the default ordering of the model records in the database. The ordering can be specified as a list of field names, or as a single field name with a sort order (ascending or descending).
+**permissions:** This option specifies the permissions that are granted to users for the model. The permissions can be specified as a list of permission names, or as a dictionary of permission names and permission levels.
+
+For a complete list of Django Model Meta Options, please see the Django documentation: https://docs.djangoproject.com/en/stable/ref/models/options/.
+
+**ordering** define the behavior in relation to order the 
+``` Python
+class Book(models.Model):
+    title = models.CharField(max_length=255)
+    author = models.CharField(max_length=255)
+    published_date = models.DateField()
+
+    class Meta:
+        db_table = 'books'
+        ordering = ['-published_date']
+        permissions = [('can_edit', 'Can edit books'), ('can_delete', 'Can delete books')]
+```
+
+ database table name should be books, 
+ the default ordering of the records should be by the published_date field in descending order, 
+ and that the users should have the following permissions: can_edit and can_delete.
