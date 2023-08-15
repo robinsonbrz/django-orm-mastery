@@ -445,3 +445,10 @@ class Book(models.Model):
  database table name should be books, 
  the default ordering of the records should be by the published_date field in descending order, 
  and that the users should have the following permissions: can_edit and can_delete.
+
+# Migrations
+
+Propagating the model changes to the database schema.
+
+
+
