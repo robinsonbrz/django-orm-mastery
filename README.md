@@ -450,5 +450,48 @@ class Book(models.Model):
 
 Propagating the model changes to the database schema.
 
+# Queries and explain
+
+qs.query                # show the last query
+
+
+from django.db import connection, reset_queries
+
+connection.queries      # Shows the last queries
+
+reset_queries()         # reset the list of last queries
+
+```Python
+>>> print(Blog.objects.filter(title="My Blog").explain(verbose=True, analyze=True))
+Seq Scan on public.blog  (cost=0.00..35.50 rows=10 width=12) (actual time=0.004..0.004 rows=10 loops=1)
+  Output: id, title
+  Filter: (blog.title = 'My Blog'::bpchar)
+Planning time: 0.064 ms
+Execution time: 0.058 ms
+```
+## Pretty print SQL 
+
+```bash
+pip install Pygments
+pip install sqlparse
+```
+
+```Python
+from pygments import highlight
+from pygments.formatters import TerminalFormatter
+from pygments.lexers import PostgresLexer
+from sqlparse import format
+from inventory.models import Brand
+```
+x = Brand.objects.create(brand_id=1, name='Nike')
+sqlformatted = format(str(x.query), reindent=True)
+print(highlight(sqlformatted, PostgresLexer(), TerminalFormatter()))
+
+
+
+**import:** This module is used to import other modules into the current namespace.
+**highlight:** This module provides functions for highlighting code in different formats, such as HTML, LaTeX, and ANSI escape sequences.
+**formatters:** This module provides different formatters for the highlight module, such as the TerminalFormatter which is used to highlight code in the terminal.
+**lexers:** This module provides lexers for different programming languages, such as the PostgresLexer which is used to tokenize Postgres SQL queries.
 
 
