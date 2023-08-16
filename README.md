@@ -495,3 +495,22 @@ print(highlight(sqlformatted, PostgresLexer(), TerminalFormatter()))
 **lexers:** This module provides lexers for different programming languages, such as the PostgresLexer which is used to tokenize Postgres SQL queries.
 
 
+
+```Python
+from ecommerce.inventory.models import Brand
+from pygments import highlight
+from pygments.formatters import TerminalFormatter
+from pygments.lexers import PostgresLexer
+from sqlparse import format
+
+def sql(x):
+    formatted =format(str(x.query), reindent=True)
+    print(highlight(formatted, PostgresLexer(), TerminalFormatter()))
+
+# count retuns quantity of objects
+x = Brand.objects.all().count()
+
+x = Brand.objects.filter(id=1).values('name')
+
+```
+
