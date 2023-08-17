@@ -515,7 +515,7 @@ x = Brand.objects.filter(id=1).values('name')
 ```
 
 
-7. How to convert string to datetime and store in database?
+## 7. How to convert string to datetime and store in database?
 
 We can convert a date-string and store it in the database using django in many ways. Few of them are discussed below. Lets say we have a date-string as “2018-03-11” we can not directly store it to our date field, so we can use some dateparser or python library for it.
 ```Python
