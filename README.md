@@ -535,3 +535,29 @@ datetime.date(2018, 3, 11)
 ```
 datetime.date(2018, 3, 11)
 
+
+___
+
+# Student case 
+
+```Python
+ from django.db import models
+
+
+
+ class Student(models.Model):
+    name=models.CharField(max_length=30)
+    marks=models.IntegerField()
+```
+
+```Python
+# views.py
+from django.shortcuts import render
+from testapp.models import Student
+
+
+def studentview(request):
+ student_list=Student.objects.order_by('marks')
+ my_dict={'student_list':student_list}
+    return render(request,'testapp/students.html',context=my_dict)
+```
