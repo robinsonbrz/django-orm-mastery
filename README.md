@@ -561,3 +561,19 @@ def studentview(request):
  my_dict={'student_list':student_list}
     return render(request,'testapp/students.html',context=my_dict)
 ```
+
+
+# Sample student 2
+
+```Python
+from django.db import models
+
+
+class Student(models.Model):
+    rollno=models.IntegerField()
+    name=models.CharField(max_length=30)
+    dob=models.DateField()
+    marks=models.IntegerField()
+    email=models.EmailField()
+    phonenumber=models.IntegerField
+```
