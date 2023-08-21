@@ -1,4 +1,8 @@
-https://www.gilenofilho.com.br/como-funciona-o-orm-do-django/
+# Estudo sobre ORM Django
+### Imerssão prática no estudo do ORM Django
+Série de anotações e exemplos práticos de várias fontes, como Udemy ORM Mastery,
+Django ORM cookbook, Django Durga, blog Gileno Filho e outras fontes. 
+
 # django-orm-mastery
 ``` bash
 python -m venv .venv   
@@ -321,6 +325,7 @@ titles = Book.objects.all().values_list('title')
 ```
 [('Title 1',), ('Title 2',), ('Title 3',), ...]
 
+https://www.gilenofilho.com.br/como-funciona-o-orm-do-django/
 https://books.agiliq.com/projects/django-orm-cookbook/en/latest/one_to_many.html
 
 In relational databases, a one-to-many relationship occurs when a parent record in one table can potentially reference several child records in another table. In a one-to-many relationship, the parent is not required to have child records; therefore, the one-to-many relationship allows zero child records, a single child record or multiple child records. To define a many-to-one relationship, use ForeignKey.:
@@ -576,4 +581,47 @@ class Student(models.Model):
     marks=models.IntegerField()
     email=models.EmailField()
     phonenumber=models.IntegerField
+```
+
+```Python
+
+from django import forms
+from .models import Student
+
+class StudentForm(forms.ModelForm):
+    class Meta:
+        model = Student
+        fields = '__all__'
+```
+
+```Python
+from django.shortcuts import render
+from .forms import StudentForm
+
+def add_student(request):
+    if request.method == 'POST':
+        form = StudentForm(request.POST)
+        if form.is_valid():
+            form.save()
+    else:
+        form = StudentForm()
+    return render(request, 'add_student.html', {'form': form})
+
+```
+
+```Python
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2>Add Student</h2>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn btn-primary">Add Student</button>
+    </form>
+</div>
+{% endblock %}
+
+
 ```
