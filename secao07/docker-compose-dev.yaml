@@ -1,0 +1,34 @@
+version: '3.8'
+
+services:
+  db_boiler_plate:
+    container_name: db_boiler_plate_dev
+    image: postgres:13-alpine
+    volumes:
+      - postgres_boiler_plate_data:/var/lib/postgresql/data/
+    environment:
+      - POSTGRES_DB=${DB_NAME}
+      - POSTGRES_USER=${DB_USER}
+      - POSTGRES_PASSWORD=${DB_PASSWD}
+    env_file:
+      - ./.env.dev
+    ports:
+      - "5435:5432"
+
+  web_boiler_plate:
+    container_name: web_boiler_plate_dev
+    image: web_boiler_plate_dev_img
+    build: .
+    tty: true
+    volumes:
+      - .:/app
+    ports:
+      - 8000:8000
+    depends_on:
+      - db_boiler_plate
+
+    env_file:
+      - ./.env.dev
+
+volumes:
+  postgres_boiler_plate_data:
