@@ -1,31 +1,29 @@
 default: 
 	@echo "Comandos disponíveis "
-	@echo "	make install         - instala requirements"
+	@echo "	make build           - cria containers caso não os tenha, ou caso modifique .env.dev"
 	@echo "	make makemigrations  - cria migrations"
-	@echo "	make migrate         - executa migrate"
+	@echo "	make migrate         - executa migrations"
 	@echo "	make createsuperuser - criar um usuario"
-	@echo "	make run             - roda servidror Django"
-	@echo "	make test            - executa pytest"
+	@echo "	make start           - inicializa container, e executa serviço Django"
+	@echo "	make stop            - encerra execução dos containers BD e Django"
 
-	
-
-install:
-	python -m pip install --upgrade pip
-	pip install -r requirements.txt
+build:
+	docker-compose -f docker-compose-dev.yaml --env-file=.env.dev up -d --build --remove-orphans
 
 makemigrations:
-	python manage.py migrate
+	docker exec -ti boiler_plate_web_dev python manage.py makemigrations
 
 migrate:
-	python manage.py migrate
+	docker exec -ti boiler_plate_web_dev python manage.py migrate
 
 createsuperuser:
-	python manage.py createsuperuser
+	docker exec -ti boiler_plate_web_dev python manage.py createsuperuser
 
-run:
-	python manage.py runserver 0.0.0.0:8000
+start:
+	docker-compose -f docker-compose-dev.yaml start
+	docker exec -ti boiler_plate_web_dev python manage.py runserver 0.0.0.0:8000
 
-test:
-	pytest --disable-warnings -v -s
+stop:
+	docker-compose -f docker-compose-dev.yaml stop 
 
 

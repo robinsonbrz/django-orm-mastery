@@ -1,8 +1,8 @@
 version: '3.8'
 
 services:
-  db_boiler_plate:
-    container_name: db_boiler_plate_dev
+  boiler_plate_db_dev:
+    container_name: boiler_plate_db_dev
     image: postgres:13-alpine
     volumes:
       - postgres_boiler_plate_data:/var/lib/postgresql/data/
@@ -15,9 +15,9 @@ services:
     ports:
       - "5435:5432"
 
-  web_boiler_plate:
-    container_name: web_boiler_plate_dev
-    image: web_boiler_plate_dev_img
+  boiler_plate_web_dev:
+    container_name: boiler_plate_web_dev
+    image: boiler_plate_web_dev_img
     build: .
     tty: true
     volumes:
@@ -25,7 +25,7 @@ services:
     ports:
       - 8000:8000
     depends_on:
-      - db_boiler_plate
+      - boiler_plate_db_dev
 
     env_file:
       - ./.env.dev
