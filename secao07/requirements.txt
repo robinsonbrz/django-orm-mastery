@@ -1,5 +1,6 @@
-asgiref==3.5.2
 backports.zoneinfo==0.2.1
+psycopg2-binary==2.8.6
+typing_extensions==4.7.1
+asgiref==3.5.2
 Django==4.0.5
-psycopg==3.1.10
 sqlparse==0.4.2
