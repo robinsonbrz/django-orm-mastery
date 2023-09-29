@@ -2,7 +2,12 @@ from django.db import models
 from django.utils.translation import gettext_lazy as _
 from mptt.models import MPTTModel, TreeForeignKey
 
-
+'''
+MPTTModel stands for Modified Preorder Tree Traversal. 
+It is a  tree traversal algorithm that is used to store hierarchical data 
+in a  flat database. 
+MPTTModel is a Django model class that implements the MPTT algorithm.
+'''
 class Category(MPTTModel):
     name = models.CharField(
         max_length=100,
