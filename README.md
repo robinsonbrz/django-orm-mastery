@@ -989,9 +989,11 @@ from django.db import connection, transaction
 from django.db import reset_queries
 
 cursor = connection.cursor()
-cursor.execute("INSERT INTO inventory_brand (name) VALUES (%s, %s)", ['10','Reebok'])
+cursor.execute("INSERT INTO inventory_brand (brand_id, name, nickname) VALUES (%s, %s, %s)", ['10','Reebok','nickname teste'])
 
+#exibe as queries
 connection.queries
+# reseta as queries 
 reset_queries()
 
 ```
