@@ -1043,6 +1043,85 @@ print(datetime_object)
 
 ```
 
+### Objetos datetime
+Um objeto datetime é um único objeto contendo todas as informações de um objeto date e um objeto time.
 
+Assim como um objeto date, datetime assume o atual calendário Gregoriano estendido em ambas as direções; assim como um objeto time, datetime assume que existem exatamente 3600*24 segundos em cada dia.
+
+
+```python
+>>> from datetime import date
+>>> date.fromisoformat('2019-12-04')
+datetime.date(2019, 12, 4)
+```
+class datetime.date
+Uma data ingênua idealizada, presumindo que o atual calendário Gregoriano sempre foi, e sempre estará em vigor. Atributos: year, month, e day.
+
+class datetime.time
+Um horário ideal, independente de qualquer dia em particular, presumindo que todos os dias tenham exatamente 24*60*60 segundos. (Não há noção de “segundos bissextos” aqui.) Atributos: hour, minute, second, microsecond e tzinfo.
+
+class datetime.datetime
+Uma combinação de uma data e uma hora. Atributos: year, month, day, hour, minute, second, microsecond, e tzinfo.
+
+class datetime.timedelta
+Uma duração que expressa a diferença entre duas instâncias date, time ou datetime para resolução de microssegundos.
+
+
+
+date2 = date1 + timedelta
+date2 é movida para frente no tempo se timedelta.days > 0, ou para trás se timedelta.days < 0. Posteriormente date2 - date1 == timedelta.days. timedelta.seconds e timedelta.microseconds são ignorados. OverflowError é levantado se date2.year for menor que MINYEAR ou maior que MAXYEAR.
+timedelta.seconds e timedelta.microseconds são ignoradas.
+
+date2 = date1 - timedelta
+timedelta = date1 - date2
+date1 < date2
+
+date.weekday()
+Retorna o dia da semana como um inteiro, onde Segunda é 0 e Domingo é 6. Por exemplo, date(2002, 12, 4).weekday() == 2, uma Quarta-feira. Veja também isoweekday().
+
+date.isoweekday()
+Retorna o dia da semana como um inteiro, onde Segunda é 1 e Domingo é 7. Por exemplo, date(2002, 12, 4).isoweekday() == 3, uma Quarta-feira. Veja também weekday(), isocalendar().
+
+Construtor:
+
+class datetime.datetime(year, month, day, hour=0, minute=0, second=0, microsecond=0, tzinfo=None, *, fold=0)
+Os argumentos year, month e day são obrigatórios. tzinfo pode ser None, ou uma instância de subclasse de tzinfo. Os argumentos remanescentes devem ser inteiros nos seguintes intervalos:
+
+MINYEAR <= year <= MAXYEAR,
+
+1 <= month <= 12,
+
+1 <= day <= número de dias no mês e ano fornecidos,
+
+0 <= hour < 24,
+
+0 <= minute < 60,
+
+0 <= second < 60,
+
+0 <= microsecond < 1000000,
+
+fold in [0, 1].
+
+datetime.year
+Entre MINYEAR e MAXYEAR incluindo extremos.
+
+datetime.month
+Entre 1 e 12 incluindo extremos.
+
+datetime.day
+Entre 1 e o número de dias no mês especificado do ano especificado.
+
+datetime.hour
+No intervalo range(24).
+
+datetime.minute
+No intervalo range(60).
+
+datetime.second
+No intervalo range(60).
+
+datetime.microsecond
+No intervalo range(1000000).
 
 
