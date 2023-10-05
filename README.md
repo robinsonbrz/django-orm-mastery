@@ -1155,6 +1155,7 @@ y = Category(name='Flip-Flops2', slug='flipflops2', is_active=True)
 y.save()
 
 y = Category.objects.all()
+# unpack all categories in a Product
 x.category.add(*y)
 
 ```
