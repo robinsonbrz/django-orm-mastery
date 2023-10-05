@@ -1192,7 +1192,11 @@ reset_queries()
 ```
 ### 64. Insert data into multiples tables & using atomic operations
 
-# Insert data into multiples tables & using atomic operations
+atomic operationsallows us to change data into the database only if all of the operations run succesfully
+    try:
+        with transaction.atomic():
+
+
 
 In one statement: No
 In one transaction: Yes
