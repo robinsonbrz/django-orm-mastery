@@ -1249,7 +1249,7 @@ def new(request):
     return HttpResponse("Hi")
 ```
 ### 65. Insert data into a single table with a one-to-one relationship
-# Insert into single table with one-to-one relationship
+Insert into single table with one-to-one relationship
 
 ```python
 from inventory.models import Product, ProductInventory, Brand, ProductType, Stock
@@ -1260,5 +1260,18 @@ ProductType.objects.create(name="shoe")
 ProductInventory.objects.create(sku='123',upc='123',product_type_id=1,product_id=1,brand_id=1, retail_price='10.00', store_price='10.00', sale_price='10.00', weight='100')
 
 Stock.objects.create(product_inventory_id=1,units=100)
+
+```
+
+### 66. Insert multiple objects into single table – bulk create
+Insert multiple objects into single table – bulk create
+
+```python
+from inventory.models import Brand
+Brand.objects.all().delete()
+
+data = [{'brand_id':3,'name': '3'},{'brand_id':4,'name': '5'}]
+
+Brand.objects.bulk_create([Brand(**ab) for ab in data])
 
 ```
