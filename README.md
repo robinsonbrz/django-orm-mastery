@@ -1393,6 +1393,8 @@ Brand.objects.all().query
 ```
 ### 72. SQL – Return all objects from a single table
 
+A queryset is almost a list of objects
+
 SQL – Return all objects from a single table
 
 ```python
@@ -1412,6 +1414,39 @@ for i in x:
 
 connection.queries
 reset_queries()
+
+
+### 73. Retrieving single objects from a single table – get()
+
+get does not return a queryset, it returns a object
+One object from the DB
+
+If there are more than one object to return it raises an error
+If it does not exist it raises an error as well
+
+
+SQL – Retrieving single objects from a single table
+
+```python
+from ecommerce.inventory.models import Brand, Category
+from django.core.exceptions import ObjectDoesNotExist, MultipleObjectsReturned
+
+
+Brand.objects.get(id=1)
+Brand.objects.all()
+Brand.objects.create(name="361")
+
+x = Brand.objects.get(id=1)
+Brand.objects.get(id=100)
+
+```
+
+Showing objects fields and values:
+pprint(vars(s))
+{'age': 14, 'id': 23, 'name': 'Alice'}
+
+# calling the __dict__ attribute
+print(s.__dict__)
 
 
 
