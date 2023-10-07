@@ -1383,7 +1383,7 @@ python manage.py loaddata inventory_brand
 
 ### 71. Return all objects from a single table – all()
 
-# Return all data from a single table
+Return all data from a single table
 
 ```python
 from ecommerce.inventory.models import Brand, Category
@@ -1391,8 +1391,27 @@ Brand.objects.all()
 Brand.objects.all().query
 
 ```
+### 72. SQL – Return all objects from a single table
+
+SQL – Return all objects from a single table
+
+```python
+from inventory.models import Brand, Category
+from django.db import connection
+from django.db import reset_queries
+
+cursor = connection.cursor()
+x = cursor.execute("SELECT name FROM inventory_brand")
+for i in x:
+    print(i)
+
+x = Brand.objects.raw('SELECT * FROM inventory_brand')
+for i in x:
+    print(i)
 
 
+connection.queries
+reset_queries()
 
 
 
