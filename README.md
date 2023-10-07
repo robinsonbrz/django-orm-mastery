@@ -1448,5 +1448,29 @@ pprint(vars(s))
 # calling the __dict__ attribute
 print(s.__dict__)
 
+### 74. SQL – Return single objects from a single table
 
+SQL – Retrieving single objects from a single table
+
+```python
+from inventory.models import Brand
+from django.db import connection
+from django.db import reset_queries
+
+Brand.objects.bulk_create([Brand(name='Reebok'),Brand(name='Puma')])
+
+Brand.objects.get(name='Nike')
+
+x = Brand.objects.raw('SELECT * FROM inventory_brand WHERE name="Reebok"')
+for i in x:
+    print(i)
+
+x = Brand.objects.raw('SELECT * FROM inventory_brand WHERE name="Reebok" OR id=2')
+for i in x:
+    print(i)
+
+connection.queries
+reset_queries()
+
+```
 
