@@ -1325,14 +1325,16 @@ from django.core.management import call_command
 from django.core.management.base import BaseCommand
 
 
-dumpdata > db.json # all
-dumpdata admin > admin.json # app
-dumpdata admin.logentry > logentry.json # table
+# dumpdata > db.json # all
+# dumpdata admin > admin.json # app
+# dumpdata admin.logentry > logentry.json # table
 
-dumpdata auth.user --indent 2 > user.json # indent
+# dumpdata auth.user --indent 2 > user.json # indent
 
 class Command(BaseCommand):
     def handle(self, *args, **kwargs):
+
+        # call_command method calls "python manage.py" followed by the command
         call_command("makemigrations")
         call_command("migrate")
         call_command("loaddata", "db_admin_fixture.json")
@@ -1349,5 +1351,33 @@ class Command(BaseCommand):
         call_command("loaddata", "db_product_attribute_values_fixture.json")
         call_command("loaddata", "db_product_type_attribute_fixture.json")
 
-
 ```
+
+inventory_brand.json
+``` json
+[
+  {
+    "model": "inventory.brand",
+    "pk": 1,
+    "fields": {
+      "name": "nike",
+      "nickname": "nike"
+    }
+  },
+  {
+    "model": "inventory.brand",
+    "pk": 2,
+    "fields": {
+      "name": "nike2",
+      "nickname": "nike2"
+    }
+  }
+]
+```
+import data from a json to the DB
+python manage.py loaddata inventory_brand
+
+
+
+
+
