@@ -1283,6 +1283,12 @@ Query Profiling - bulk_create vs create performance
 from inventory.models import Brand
 from django.db import connection, transaction
 from django.db import reset_queries
+'''
+
+cProfile is a Python module that can be used to profile Python code. 
+It provides detailed information about the time spent 
+in each function and the number of times each function is called. 
+'''
 import cProfile
 
 # from inventory import views
@@ -1306,5 +1312,42 @@ p.print_stats(sort='tottime')
 Brand.objects.all().delete()
 connection.queries
 reset_queries()
+
+```
+
+### 68. Creating and automating a set of Django Fixtures
+
+Query Profiling - bulk_create vs create performance
+
+```python
+
+from django.core.management import call_command
+from django.core.management.base import BaseCommand
+
+
+dumpdata > db.json # all
+dumpdata admin > admin.json # app
+dumpdata admin.logentry > logentry.json # table
+
+dumpdata auth.user --indent 2 > user.json # indent
+
+class Command(BaseCommand):
+    def handle(self, *args, **kwargs):
+        call_command("makemigrations")
+        call_command("migrate")
+        call_command("loaddata", "db_admin_fixture.json")
+        call_command("loaddata", "db_category_fixture.json")
+        call_command("loaddata", "db_product_fixture.json")
+        call_command("loaddata", "db_category_product_fixture.json")
+        call_command("loaddata", "db_type_fixture.json")
+        call_command("loaddata", "db_brand_fixture.json")
+        call_command("loaddata", "db_product_inventory_fixture.json")
+        call_command("loaddata", "db_media_fixture.json")
+        call_command("loaddata", "db_stock_fixture.json")
+        call_command("loaddata", "db_product_attribute_fixture.json")
+        call_command("loaddata", "db_product_attribute_value_fixture.json")
+        call_command("loaddata", "db_product_attribute_values_fixture.json")
+        call_command("loaddata", "db_product_type_attribute_fixture.json")
+
 
 ```
