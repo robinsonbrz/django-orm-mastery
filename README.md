@@ -1377,6 +1377,21 @@ inventory_brand.json
 import data from a json to the DB
 python manage.py loaddata inventory_brand
 
+### 69. Section Introduction
+
+### 70. Section setup guide (Codebase-2)
+
+### 71. Return all objects from a single table – all()
+
+# Return all data from a single table
+
+```python
+from ecommerce.inventory.models import Brand, Category
+Brand.objects.all()
+Brand.objects.all().query
+
+```
+
 
 
 
