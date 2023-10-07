@@ -1474,3 +1474,34 @@ reset_queries()
 
 ```
 
+### 75. Filter & Exclude - Retrieving specific objects
+
+Filter & Exclude - Retrieving specific objects
+Can filter fields like i name or any field
+
+Within Filter we use lookup parameters
+
+```python
+from ecommerce.inventory.models import Brand
+
+Brand.objects.all()
+Brand.objects.get(id=1)
+
+Brand.objects.all().filter(id=1)
+Brand.objects.all().filter(id=1,name="361")
+# like an and operator and and andand 
+Brand.objects.filter(id=1).filter(name="361")
+
+# like SQL or operator or or or or or
+Brand.objects.filter(id=1,name="361") | Brand.objects.filter(id=2) | Brand.objects.filter(id=3)
+
+# lookup operators
+Brand.objects.all().filter(id__lte=10)
+Brand.objects.all().filter(name__startswith="a")
+
+# excluding
+Brand.objects.all().exclude(id=1)
+Brand.objects.all().exclude(name__startswith="a")
+
+```
+
