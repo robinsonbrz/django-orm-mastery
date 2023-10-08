@@ -1586,8 +1586,20 @@ formatted = format(str(x.query), reindent=True)
 print(highlight(formatted, PostgresLexer(), TerminalFormatter()))
 
 ```
-``````
+
 
 
 ![How to use joins graphically explained](https://terminalroot.com.br/assets/img/mysql/joins-mysql.jpg)
 
+### 79. Retrieve objects from multiple tables through a one-to-one relationship
+
+Retrieve objects from multiple tables through a one-to-one relationship
+
+```python
+from ecommerce.inventory.models import ProductInventory, Stock
+
+x = Stock.objects.filter(product_inventory_id__store_price=92)
+
+x = ProductInventory.objects.filter(product_inventory__units=135)
+
+```
