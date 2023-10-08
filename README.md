@@ -1504,4 +1504,14 @@ Brand.objects.all().exclude(id=1)
 Brand.objects.all().exclude(name__startswith="a")
 
 ```
+### 76. SQL – Filter retrieving objects – filter()
 
+SQL – Return single objects from a single table
+
+```python
+from ecommerce.inventory.models import Brand
+Brand.objects.all()
+x = Brand.objects.raw("SELECT * FROM inventory_brand WHERE id=1 AND name='361' OR id=2")
+x = Brand.objects.raw("SELECT * FROM inventory_brand WHERE id!=1")
+
+```
