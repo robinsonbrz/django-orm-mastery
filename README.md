@@ -1515,3 +1515,54 @@ x = Brand.objects.raw("SELECT * FROM inventory_brand WHERE id=1 AND name='361' O
 x = Brand.objects.raw("SELECT * FROM inventory_brand WHERE id!=1")
 
 ```
+### 77. Retrieve objects from multiple tables through a foreign key relationship
+
+Filter & Exclude - Retrieving specific objects
+
+```python
+from ecommerce.inventory.models import Brand
+
+Brand.objects.all()
+Brand.objects.get(id=1)
+
+Brand.objects.all().filter(id=1)
+Brand.objects.all().filter(id=1,name="361")
+Brand.objects.filter(id=1).filter(name="361")
+Brand.objects.filter(id=1,name="361") | Brand.objects.filter(id=2) | Brand.objects.filter(id=3)
+Brand.objects.all().filter(id__lte=10)
+Brand.objects.all().filter(name__startswith="a")
+
+Brand.objects.all().exclude(id=1)
+Brand.objects.all().exclude(name__startswith="a")
+
+```
+# Muito importante Reverse lookUp
+# Muito importante Reverse lookUp
+# Muito importante Reverse lookUp
+# Muito importante Reverse lookUp
+Must have a related name
+
+Retrieve objects from multiple tables through a foreign key relationship
+Retrieve from different tables 
+
+```python
+from ecommerce.inventory.models import Product, ProductInventory, Brand, Media, Category
+from django.db import connection, reset_queries
+
+x = ProductInventory.objects.filter(brand_id__name="a.x.n.y.")
+x = Brand.objects.filter(brand__id=8)
+
+x = Product.objects.filter(category_id=4)
+
+x = Product.objects.filter(category_id__name="sport and fitness")
+
+x = Category.objects.filter(product__name="widstar running sneakers")
+
+x = ProductInventory.objects.filter(product_id__category_id__name="boots")
+
+x = Category.objects.filter(category__product__id=1)
+
+connection.queries
+reset_queries()
+
+```
