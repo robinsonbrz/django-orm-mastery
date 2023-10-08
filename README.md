@@ -1586,3 +1586,8 @@ formatted = format(str(x.query), reindent=True)
 print(highlight(formatted, PostgresLexer(), TerminalFormatter()))
 
 ```
+``````
+
+
+![How to use joins graphically explained](https://terminalroot.com.br/assets/img/mysql/joins-mysql.jpg)
+
