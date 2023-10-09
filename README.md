@@ -1603,3 +1603,20 @@ x = Stock.objects.filter(product_inventory_id__store_price=92)
 x = ProductInventory.objects.filter(product_inventory__units=135)
 
 ```
+### 80. Retrieve objects from multiple tables through a many-to-many relationship
+
+Retrieve objects from multiple tables through a one-to-one relationship
+
+```python
+from ecommerce.inventory.models import ProductInventory, ProductAttributeValue, ProductAttribute, ProductType
+
+x = ProductAttributeValue.objects.filter(product_attribute_values__id=1)
+
+ProductAttribute.objects.filter(product_attribute__product_attribute_values__id=1)
+
+ProductInventory.objects.filter(attribute_values__product_attribute__name="woman-shoe-size").count()
+
+ProductInventory.objects.filter(product_type__product_type_attributes__name="woman-shoe-size").count()
+
+```
+
