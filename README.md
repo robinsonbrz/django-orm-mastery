@@ -1272,9 +1272,20 @@ Brand.objects.all().delete()
 
 data = [{'brand_id':3,'name': '3'},{'brand_id':4,'name': '5'}]
 
+# Bulk create receives a list
 Brand.objects.bulk_create([Brand(**ab) for ab in data])
 
 ```
+
+Second example
+```python
+Category.objects.bulk_create(
+    [Category(name="God"),
+     Category(name="Demi God"),
+     Category(name="Mortal")]
+)
+```
+
 ### 67. Query Profiling – bulk_create() vs create() performance analysis
 
 Query Profiling - bulk_create vs create performance 
