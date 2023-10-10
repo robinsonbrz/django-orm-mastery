@@ -1638,4 +1638,16 @@ ProductInventory.objects.filter(product_type__product_type_attributes__name="wom
 Category has now a foreign key to Product
 And the relation is not many to many anymore
 
+### 83. Modify existing data for a specified record in a table
 
+Performs an SQL update query for specified fields update()
+
+```python
+from ecommerce.inventory.models import Brand
+
+Brand.objects.filter(id=1).update(name="newdata")
+
+Brand.objects.filter(id__range=(1,5)).update(name="newdata")
+
+```
+Basically is filter and then .update()
