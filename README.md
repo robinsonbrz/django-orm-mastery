@@ -1633,4 +1633,9 @@ ProductInventory.objects.filter(product_type__product_type_attributes__name="wom
 
 ### 81. Section Introduction
 
+### 82. Section setup guide (Codebase-2)
+
+Category has now a foreign key to Product
+And the relation is not many to many anymore
+
 
