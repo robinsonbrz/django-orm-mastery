@@ -1651,3 +1651,22 @@ Brand.objects.filter(id__range=(1,5)).update(name="newdata")
 
 ```
 Basically is filter and then .update()
+
+### 84. Implementing update_or_create()
+
+Update data or create if it doesnt exist
+update_or_create()
+
+
+```python
+from ecommerce.inventory.models import Brand
+
+Brand.objects.filter(id=1).update(name="a.n.a")
+
+Brand.objects.update_or_create(id=1, name="veryacademy")
+
+Brand.objects.update_or_create(name="veryacademy", nickname="new")
+
+Brand.objects.update_or_create(name="veryacademy", nickname="new", defaults={"nickname":"newnickname"})
+
+```
