@@ -1656,6 +1656,9 @@ Basically is filter and then .update()
 
 Update data or create if it doesnt exist
 update_or_create()
+Return the object and 
+True if created or 
+False it it was not created but updated
 
 
 ```python
@@ -1668,5 +1671,30 @@ Brand.objects.update_or_create(id=1, name="veryacademy")
 Brand.objects.update_or_create(name="veryacademy", nickname="new")
 
 Brand.objects.update_or_create(name="veryacademy", nickname="new", defaults={"nickname":"newnickname"})
+
+```
+### 85. bulk_update records in a single table
+
+Bulk Update
+
+```python
+from inventory.models import Brand
+
+y = [ Brand.objects.get(id=1) ]
+y[0].name = "something"
+
+Brand.objects.bulk_update(y, ["name"])
+
+data = [(1,'aaa'),(2,'bbb')]
+id_set = [id for id, name in data]
+brand_to_update = Brand.objects.filter(id__in=id_set)
+
+new_update = []
+for brand in brand_to_update:
+    brand.name = next(name for id, name in data if id == brand.id)
+    new_update.append(brand)
+    print(brand.name)
+
+Brand.objects.bulk_update(new_update, ['name'])
 
 ```
