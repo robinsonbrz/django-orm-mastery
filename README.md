@@ -1804,4 +1804,27 @@ x = Product.objects.filter(name__icontains="widstar running sneakers")
 # 'a%o' Finds any values that start with "a" and ends with "o"
 
 ```
+### 99. Field lookup with greater or less than
 
+Greater Than
+Lesser Than
+Greater Equal Than
+Lesser Equal Than
+
+```python
+from ecommerce.inventory.models import ProductInventory
+from pygments import highlight
+from pygments.formatters import TerminalFormatter
+from pygments.lexers import PostgresLexer
+from sqlparse import format
+
+def sql(x):
+    formatted = format(str(x.query), reindent=True)
+    print(highlight(formatted, PostgresLexer(), TerminalFormatter()))
+
+x = ProductInventory.objects.filter(retail_price__lt=100)
+x = ProductInventory.objects.filter(retail_price__gt=100)
+x = ProductInventory.objects.filter(retail_price__gte=100)
+x = ProductInventory.objects.filter(retail_price__lte=100)
+
+```
