@@ -1810,6 +1810,11 @@ Greater Than
 Lesser Than
 Greater Equal Than
 Lesser Equal Than
+__lt=100
+__gt=100
+__gte=100
+__lte=100
+
 
 ```python
 from ecommerce.inventory.models import ProductInventory
@@ -1826,5 +1831,8 @@ x = ProductInventory.objects.filter(retail_price__lt=100)
 x = ProductInventory.objects.filter(retail_price__gt=100)
 x = ProductInventory.objects.filter(retail_price__gte=100)
 x = ProductInventory.objects.filter(retail_price__lte=100)
+
+# greater than 100 and less than 300 
+x = ProductInventory.objects.filter(retail_price__gt=100) | ProductInventory.objects.filter(retail_price__lt=300)
 
 ```
