@@ -1729,3 +1729,52 @@ connection.queries
 reset_queries()
 
 ```
+
+### 89. Section introduction
+
+### 90. Docker introduction
+
+### 91. Installing Docker MacOS
+
+### 92. Installing Docker Desktop for Windows 10/11
+### 93. Create a Postgres Docker container
+
+### 94. Configuring Django to work with a PostgreSQL database
+
+Seção 16:L1: Field lookup Keywords Arguments
+### 95. Section Introduction
+
+### 96. Section setup guide (Codebase-3)
+
+### 97. Field lookups
+Uses Postgres Database and Docker Containers
+
+Field Lookups
+name__exact
+name__iexact
+id__exact
+
+```python
+from ecommerce.inventory.models import Product
+from pygments import highlight
+from pygments.formatters import TerminalFormatter
+from pygments.lexers import PostgresLexer
+from sqlparse import format
+
+def sql(x):
+    formatted = format(str(x.query), reindent=True)
+    print(highlight(formatted, PostgresLexer(), TerminalFormatter()))
+
+
+Product.objects.filter()
+Product.objects.exclude()
+Product.objects.get()
+
+x = Product.objects.filter(id=1)
+x = Product.objects.filter(name__exact="widstar running sneakers")
+x = Product.objects.filter(name__iexact="Widstar running sneakers")
+
+# Query when no entry or NULL
+Product.objects.filter(id__exact=None)
+
+```
