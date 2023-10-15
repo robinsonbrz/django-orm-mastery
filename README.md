@@ -1870,3 +1870,25 @@ x = Product.objects.filter(name__startswith='a').filter(name__endswith='a')
 # a%a start with "a" and ends with "a"
 
 ```
+
+### 101. Field lookup range
+
+Contains
+
+```python
+from ecommerce.inventory.models import ProductInventory
+from pygments import highlight
+from pygments.formatters import TerminalFormatter
+from pygments.lexers import PostgresLexer
+from sqlparse import format
+
+def sql(x):
+    formatted = format(str(x.query), reindent=True)
+    print(highlight(formatted, PostgresLexer(), TerminalFormatter()))
+
+x = ProductInventory.objects.filter(retail_price__range=(1,10))
+# will return all ProductInventory objects that were:
+# created between 2020-01-01 and 2022-10-10, inclusive.
+x = ProductInventory.objects.filter(created_at__range=('2020-01-01','2022-10-10'))
+
+```
