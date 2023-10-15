@@ -1779,7 +1779,7 @@ Product.objects.filter(id__exact=None)
 
 ```
 
-98. Field lookup contains
+### 98. Field lookup contains
 
 contains
 icontains -> Case insensitive
@@ -1894,7 +1894,9 @@ x = ProductInventory.objects.filter(created_at__range=('2020-01-01','2022-10-10'
 ```
 ### 102. Field lookup Day Week Month
 
-Day Week Month
+Day 
+Week 
+Month
 
 ```python
 from ecommerce.inventory.models import ProductInventory
@@ -1914,5 +1916,40 @@ x = ProductInventory.objects.filter(updated_at__month=9)
 x = ProductInventory.objects.filter(updated_at__month__gt=9)
 x = ProductInventory.objects.filter(updated_at__week__gt=9)
 x = ProductInventory.objects.filter(updated_at__week_day__gt=1)
+
+```
+
+### Seção 17: L1: QuerySet Ordering and Limiting
+
+### 103. Section Introduction
+
+### 104. Section setup guide (Codebase-3)
+Ordering a new QuerySet
+
+```python
+from ecommerce.inventory.models import Product
+from pygments import highlight
+from pygments.formatters import TerminalFormatter
+from pygments.lexers import PostgresLexer
+from sqlparse import format
+from django.db import connection, reset_queries
+
+def sql(x):
+    formatted = format(str(x.query), reindent=True)
+    print(highlight(formatted, PostgresLexer(), TerminalFormatter()))
+
+x = Product.objects.all().values('id')[:10]
+x = Product.objects.all().order_by('name').values('name')[:10]
+x = Product.objects.all().order_by('-id').values('id')[:10]
+x = Product.objects.all().order_by('?').values('id')[:10]
+
+x = Product.objects.all().order_by('id')
+
+x = Product.objects.raw("SELECT * FROM inventory_product ORDER BY inventory_product.id ASC")
+
+x = Product.objects.raw("SELECT * FROM inventory_product ORDER BY inventory_product.id DESC")
+
+reset_queries()
+connection.queries
 
 ```
