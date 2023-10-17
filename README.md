@@ -1396,3 +1396,164 @@ reset_queries()
 </details>
 
 ___
+
+<details>
+  <summary>68. Creating and automating a set of Django Fixtures</summary>
+
+Query Profiling - bulk_create vs create performance
+
+```python
+
+from django.core.management import call_command
+from django.core.management.base import BaseCommand
+
+
+# dumpdata > db.json # all
+# dumpdata admin > admin.json # app
+# dumpdata admin.logentry > logentry.json # table
+
+# dumpdata auth.user --indent 2 > user.json # indent
+
+class Command(BaseCommand):
+    def handle(self, *args, **kwargs):
+
+        # call_command method calls "python manage.py" followed by the command
+        call_command("makemigrations")
+        call_command("migrate")
+        call_command("loaddata", "db_admin_fixture.json")
+        call_command("loaddata", "db_category_fixture.json")
+        call_command("loaddata", "db_product_fixture.json")
+        call_command("loaddata", "db_category_product_fixture.json")
+        call_command("loaddata", "db_type_fixture.json")
+        call_command("loaddata", "db_brand_fixture.json")
+        call_command("loaddata", "db_product_inventory_fixture.json")
+        call_command("loaddata", "db_media_fixture.json")
+        call_command("loaddata", "db_stock_fixture.json")
+        call_command("loaddata", "db_product_attribute_fixture.json")
+        call_command("loaddata", "db_product_attribute_value_fixture.json")
+        call_command("loaddata", "db_product_attribute_values_fixture.json")
+        call_command("loaddata", "db_product_type_attribute_fixture.json")
+
+```
+
+inventory_brand.json
+``` json
+[
+  {
+    "model": "inventory.brand",
+    "pk": 1,
+    "fields": {
+      "name": "nike",
+      "nickname": "nike"
+    }
+  },
+  {
+    "model": "inventory.brand",
+    "pk": 2,
+    "fields": {
+      "name": "nike2",
+      "nickname": "nike2"
+    }
+  }
+]
+```
+import data from a json to the DB
+python manage.py loaddata inventory_brand
+</details>
+
+___
+
+
+<details>
+  <summary>69. Section Introduction</summary>
+</details>
+
+___
+
+<details>
+  <summary>70. Section setup guide (Codebase-2)</summary>
+</details>
+
+___
+
+<details>
+  <summary>71. Return all objects from a single table – all()</summary>
+
+
+Return all data from a single table
+
+```python
+from ecommerce.inventory.models import Brand, Category
+Brand.objects.all()
+Brand.objects.all().query
+
+```
+</details>
+
+___
+
+<details>
+  <summary>72. SQL – Return all objects from a single table</summary>
+
+A queryset is almost a list of objects
+
+SQL – Return all objects from a single table
+
+```python
+from inventory.models import Brand, Category
+from django.db import connection
+from django.db import reset_queries
+
+cursor = connection.cursor()
+x = cursor.execute("SELECT name FROM inventory_brand")
+for i in x:
+    print(i)
+
+x = Brand.objects.raw('SELECT * FROM inventory_brand')
+for i in x:
+    print(i)
+
+
+connection.queries
+reset_queries()
+```
+</details>
+
+___
+
+<details>
+  <summary>73. Retrieving single objects from a single table – get()</summary>
+
+
+get does not return a queryset, it returns a object
+One object from the DB
+
+If there are more than one object to return it raises an error
+If it does not exist it raises an error as well
+
+
+SQL – Retrieving single objects from a single table
+
+```python
+from ecommerce.inventory.models import Brand, Category
+from django.core.exceptions import ObjectDoesNotExist, MultipleObjectsReturned
+
+
+Brand.objects.get(id=1)
+Brand.objects.all()
+Brand.objects.create(name="361")
+
+x = Brand.objects.get(id=1)
+Brand.objects.get(id=100)
+
+```
+
+Showing objects fields and values:
+pprint(vars(s))
+{'age': 14, 'id': 23, 'name': 'Alice'}
+
+
+calling the __dict__ attribute
+
+print(s.__dict__)
+</details>
