@@ -1973,6 +1973,8 @@ def sql(x):
 x = Product.objects.all().values('id')[:10]
 x = Product.objects.all().order_by('name').values('name')[:10]
 x = Product.objects.all().order_by('-id').values('id')[:10]
+
+# ? it is a random ordered
 x = Product.objects.all().order_by('?').values('id')[:10]
 
 x = Product.objects.all().order_by('id')
@@ -2009,9 +2011,31 @@ reset_queries()
 connection.queries
 
 ```
-
-
 ### 107. Return the first or last object matched by the queryset
+Return the first object matched by the queryset
+
+```python
+from ecommerce.inventory.models import Product, Brand
+from pygments import highlight
+from pygments.formatters import TerminalFormatter
+from pygments.lexers import PostgresLexer
+from sqlparse import format
+from django.db import connection, reset_queries
+
+def sql(x):
+    formatted = format(str(x.query), reindent=True)
+    print(highlight(formatted, PostgresLexer(), TerminalFormatter()))
+
+x = Brand.objects.all().first()
+x = Brand.objects.all().last()
+
+x = Brand.objects.all()[:1]
+
+x = Brand.objects.raw("SELECT * FROM inventory_product ORDER BY inventory_product.id ASC LIMIT 1")
+
+reset_queries()
+connection.queries
+
 
 
 ### 108. Return the earliest or latest object matched by the QuerySet
