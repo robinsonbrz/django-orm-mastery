@@ -1730,3 +1730,180 @@ ___
 
 
 
+<details>
+  <summary>79. Retrieve objects from multiple tables through a one-to-one relationship</summary>
+
+Retrieve objects from multiple tables through a one-to-one relationship
+
+```python
+from ecommerce.inventory.models import ProductInventory, Stock
+
+x = Stock.objects.filter(product_inventory_id__store_price=92)
+
+x = ProductInventory.objects.filter(product_inventory__units=135)
+
+```
+</details>
+
+___
+
+<details>
+  <summary>80. Retrieve objects from multiple tables through a many-to-many relationship</summary>
+
+Retrieve objects from multiple tables through a one-to-one relationship
+
+```python
+from ecommerce.inventory.models import ProductInventory, ProductAttributeValue, ProductAttribute, ProductType
+
+x = ProductAttributeValue.objects.filter(product_attribute_values__id=1)
+
+ProductAttribute.objects.filter(product_attribute__product_attribute_values__id=1)
+
+ProductInventory.objects.filter(attribute_values__product_attribute__name="woman-shoe-size").count()
+
+ProductInventory.objects.filter(product_type__product_type_attributes__name="woman-shoe-size").count()
+
+```
+</details>
+
+___
+
+
+<details>
+  <summary>81. Section Introduction</summary>
+
+</details>
+
+___
+
+<details>
+  <summary>82. Section setup guide (Codebase-2)</summary>
+
+Category has now a foreign key to Product
+And the relation is not many to many anymore
+</details>
+
+___
+
+<details>
+  <summary>83. Modify existing data for a specified record in a table</summary>
+
+Performs an SQL update query for specified fields update()
+
+```python
+from ecommerce.inventory.models import Brand
+
+Brand.objects.filter(id=1).update(name="newdata")
+
+Brand.objects.filter(id__range=(1,5)).update(name="newdata")
+
+```
+Basically is filter and then .update()
+</details>
+
+___
+
+<details>
+  <summary>84. Implementing update_or_create()</summary>
+
+Update data or create if it doesnt exist
+update_or_create()
+Return the object and 
+True if created or 
+False it it was not created but updated
+
+
+```python
+from ecommerce.inventory.models import Brand
+
+Brand.objects.filter(id=1).update(name="a.n.a")
+
+Brand.objects.update_or_create(id=1, name="veryacademy")
+
+Brand.objects.update_or_create(name="veryacademy", nickname="new")
+
+Brand.objects.update_or_create(name="veryacademy", nickname="new", defaults={"nickname":"newnickname"})
+
+```
+</details>
+
+___
+
+<details>
+  <summary>85. bulk_update records in a single table</summary>
+
+Bulk Update
+
+```python
+from inventory.models import Brand
+
+y = [ Brand.objects.get(id=1) ]
+y[0].name = "something"
+
+Brand.objects.bulk_update(y, ["name"])
+
+data = [(1,'aaa'),(2,'bbb')]
+id_set = [id for id, name in data]
+brand_to_update = Brand.objects.filter(id__in=id_set)
+
+new_update = []
+for brand in brand_to_update:
+    brand.name = next(name for id, name in data if id == brand.id)
+    new_update.append(brand)
+    print(brand.name)
+
+Brand.objects.bulk_update(new_update, ['name'])
+
+```
+</details>
+
+___
+
+<details>
+  <summary>86. Section Introduction</summary>
+
+This setup doesnt have a many to many relationship between Product and category
+
+</details>
+
+___
+
+<details>
+  <summary>87. Section setup guide (Codebase-2)</summary>
+
+</details>
+
+___
+
+<details>
+  <summary>88. Delete single and multiple objects</summary>
+
+First identify what is going to be deleted
+Beware of deleting non intentional data
+
+Delete single object
+
+```python
+from inventory.models import Brand
+from django.db import connection
+from django.db import reset_queries
+
+x = Brand.objects.create(name='Adidas')
+
+Brand.objects.all().delete()
+
+Brand.objects.get(brand_id=1).delete()
+
+Brand.objects.filter(brand_id_2).delete()
+
+# Note sign-posting to FK behavior (possible future referral to Django ORM course focused on building databases/structure)
+
+connection.queries
+reset_queries()
+
+```
+</details>
+
+___
+
+
