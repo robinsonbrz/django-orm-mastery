@@ -1557,3 +1557,176 @@ calling the __dict__ attribute
 
 print(s.__dict__)
 </details>
+
+
+___
+
+<details>
+  <summary>74. SQL – Return single objects from a single table</summary>
+
+SQL – Retrieving single objects from a single table
+
+```python
+from inventory.models import Brand
+from django.db import connection
+from django.db import reset_queries
+
+Brand.objects.bulk_create([Brand(name='Reebok'),Brand(name='Puma')])
+
+Brand.objects.get(name='Nike')
+
+x = Brand.objects.raw('SELECT * FROM inventory_brand WHERE name="Reebok"')
+for i in x:
+    print(i)
+
+x = Brand.objects.raw('SELECT * FROM inventory_brand WHERE name="Reebok" OR id=2')
+for i in x:
+    print(i)
+
+connection.queries
+reset_queries()
+
+```
+</details>
+
+___
+
+<details>
+  <summary>75. Filter & Exclude - Retrieving specific objects</summary>
+
+Filter & Exclude - Retrieving specific objects
+Can filter fields like i name or any field
+
+Within Filter we use lookup parameters
+
+```python
+from ecommerce.inventory.models import Brand
+
+Brand.objects.all()
+Brand.objects.get(id=1)
+
+Brand.objects.all().filter(id=1)
+Brand.objects.all().filter(id=1,name="361")
+# like an and operator and and andand 
+Brand.objects.filter(id=1).filter(name="361")
+
+# like SQL or operator or or or or or
+Brand.objects.filter(id=1,name="361") | Brand.objects.filter(id=2) | Brand.objects.filter(id=3)
+
+# lookup operators
+Brand.objects.all().filter(id__lte=10)
+Brand.objects.all().filter(name__startswith="a")
+
+# excluding
+Brand.objects.all().exclude(id=1)
+Brand.objects.all().exclude(name__startswith="a")
+
+```
+</details>
+
+___
+
+<details>
+  <summary>76. SQL – Filter retrieving objects – filter()</summary>
+
+SQL – Return single objects from a single table
+
+```python
+from ecommerce.inventory.models import Brand
+Brand.objects.all()
+x = Brand.objects.raw("SELECT * FROM inventory_brand WHERE id=1 AND name='361' OR id=2")
+x = Brand.objects.raw("SELECT * FROM inventory_brand WHERE id!=1")
+
+```
+</details>
+
+___
+
+<details>
+  <summary>77. Retrieve objects from multiple tables through a foreign key relationship</summary>
+
+Filter & Exclude - Retrieving specific objects
+
+```python
+from ecommerce.inventory.models import Brand
+
+Brand.objects.all()
+Brand.objects.get(id=1)
+
+Brand.objects.all().filter(id=1)
+Brand.objects.all().filter(id=1,name="361")
+Brand.objects.filter(id=1).filter(name="361")
+Brand.objects.filter(id=1,name="361") | Brand.objects.filter(id=2) | Brand.objects.filter(id=3)
+Brand.objects.all().filter(id__lte=10)
+Brand.objects.all().filter(name__startswith="a")
+
+Brand.objects.all().exclude(id=1)
+Brand.objects.all().exclude(name__startswith="a")
+
+```
+# Muito importante Reverse lookUp
+# Muito importante Reverse lookUp
+# Muito importante Reverse lookUp
+# Muito importante Reverse lookUp
+Must have a related name
+
+Retrieve objects from multiple tables through a foreign key relationship
+Retrieve from different tables 
+
+```python
+from ecommerce.inventory.models import Product, ProductInventory, Brand, Media, Category
+from django.db import connection, reset_queries
+
+x = ProductInventory.objects.filter(brand_id__name="a.x.n.y.")
+x = Brand.objects.filter(brand__id=8)
+
+x = Product.objects.filter(category_id=4)
+
+x = Product.objects.filter(category_id__name="sport and fitness")
+
+x = Category.objects.filter(product__name="widstar running sneakers")
+
+x = ProductInventory.objects.filter(product_id__category_id__name="boots")
+
+x = Category.objects.filter(category__product__id=1)
+
+connection.queries
+reset_queries()
+
+```
+</details>
+
+___
+
+<details>
+  <summary>78. SQL - Retrieve objects foreign key relationship</summary>
+
+SQL - Retrieve objects foreign key relationship
+
+```python
+
+from ecommerce.inventory.models import Product, ProductInventory, Brand, Media, Category
+from pygments import highlight
+from pygments.formatters import TerminalFormatter
+from pygments.lexers import PostgresLexer
+from sqlparse import format
+
+x = ProductInventory.objects.filter(product_id__slug='widstar-running-sneakers')
+
+x = ProductInventory.objects.raw("SELECT * FROM inventory_productinventory INNER JOIN inventory_product ON inventory_productinventory.product_id = inventory_product.id WHERE inventory_product.slug = 'widstar-running-sneakers'")
+
+formatted = format(str(x.query), reindent=True)
+print(highlight(formatted, PostgresLexer(), TerminalFormatter()))
+
+```
+
+
+
+![How to use joins graphically explained](https://terminalroot.com.br/assets/img/mysql/joins-mysql.jpg)
+
+</details>
+
+___
+
+
+
