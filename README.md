@@ -1960,4 +1960,221 @@ ___
   <summary>96. Section setup guide (Codebase-3)</summary>
 </details>
 
+___
 
+
+<details>
+  <summary>97. Field lookups</summary>
+
+Uses Postgres Database and Docker Containers
+
+Field Lookups
+name__exact
+name__iexact
+id__exact
+
+```python
+from ecommerce.inventory.models import Product
+from pygments import highlight
+from pygments.formatters import TerminalFormatter
+from pygments.lexers import PostgresLexer
+from sqlparse import format
+
+def sql(x):
+    formatted = format(str(x.query), reindent=True)
+    print(highlight(formatted, PostgresLexer(), TerminalFormatter()))
+
+
+Product.objects.filter()
+Product.objects.exclude()
+Product.objects.get()
+
+x = Product.objects.filter(id=1)
+x = Product.objects.filter(name__exact="widstar running sneakers")
+x = Product.objects.filter(name__iexact="Widstar running sneakers")
+
+# Query when no entry or NULL
+Product.objects.filter(id__exact=None)
+
+```
+</details>
+
+___
+
+<details>
+  <summary>98. Field lookup contains</summary>
+
+contains
+icontains -> Case insensitive
+
+
+```python
+from ecommerce.inventory.models import Product
+from pygments import highlight
+from pygments.formatters import TerminalFormatter
+from pygments.lexers import PostgresLexer
+from sqlparse import format
+
+def sql(x):
+    formatted = format(str(x.query), reindent=True)
+    print(highlight(formatted, PostgresLexer(), TerminalFormatter()))
+
+x = Product.objects.filter(name__exact="widstar running sneakers")
+x = Product.objects.filter(name__iexact="widstar running sneakers")
+# %or% Finds any values that have "or" in any position
+x = Product.objects.filter(name__contains="widstar running sneakers")
+x = Product.objects.filter(name__icontains="widstar running sneakers")
+# 'a%o' Finds any values that start with "a" and ends with "o"
+
+```
+</details>
+
+___
+
+<details>
+  <summary>99. Field lookup with greater or less than</summary>
+
+Greater Than
+Lesser Than
+Greater Equal Than
+Lesser Equal Than
+__lt=100
+__gt=100
+__gte=100
+__lte=100
+
+
+```python
+from ecommerce.inventory.models import ProductInventory
+from pygments import highlight
+from pygments.formatters import TerminalFormatter
+from pygments.lexers import PostgresLexer
+from sqlparse import format
+
+def sql(x):
+    formatted = format(str(x.query), reindent=True)
+    print(highlight(formatted, PostgresLexer(), TerminalFormatter()))
+
+x = ProductInventory.objects.filter(retail_price__lt=100)
+x = ProductInventory.objects.filter(retail_price__gt=100)
+x = ProductInventory.objects.filter(retail_price__gte=100)
+x = ProductInventory.objects.filter(retail_price__lte=100)
+
+# greater than 100 and less than 300 
+x = ProductInventory.objects.filter(retail_price__gt=100) | ProductInventory.objects.filter(retail_price__lt=300)
+
+```
+</details>
+
+___
+
+<details>
+  <summary>100. Field lookup with start or end with</summary>
+
+Wildcards 
+
+Contains
+
+```python
+from ecommerce.inventory.models import Product
+from pygments import highlight
+from pygments.formatters import TerminalFormatter
+from pygments.lexers import PostgresLexer
+from sqlparse import format
+
+def sql(x):
+    formatted = format(str(x.query), reindent=True)
+    print(highlight(formatted, PostgresLexer(), TerminalFormatter()))
+
+# startswith
+# istartswith - case-insensitive starts-with
+# endswith
+# iendswith
+
+x = Product.objects.filter(name__startswith='a')
+x = Product.objects.filter(name__endswith='a')
+x = Product.objects.filter(name__startswith='a').filter(name__endswith='a')
+
+# 'a%' start with "a"
+# '%a' ends with "a"
+# %a% "a" in any position
+# _a% "a" in the second position
+# a_% "a" and are at least 2 characters in length
+# a__% "a" and are at least 3 characters in length
+# a%a start with "a" and ends with "a"
+
+```
+</details>
+
+___
+
+<details>
+  <summary>101. Field lookup range</summary>
+
+Contains
+
+```python
+from ecommerce.inventory.models import ProductInventory
+from pygments import highlight
+from pygments.formatters import TerminalFormatter
+from pygments.lexers import PostgresLexer
+from sqlparse import format
+
+def sql(x):
+    formatted = format(str(x.query), reindent=True)
+    print(highlight(formatted, PostgresLexer(), TerminalFormatter()))
+
+x = ProductInventory.objects.filter(retail_price__range=(1,10))
+# will return all ProductInventory objects that were:
+# created between 2020-01-01 and 2022-10-10, inclusive.
+x = ProductInventory.objects.filter(created_at__range=('2020-01-01','2022-10-10'))
+
+```
+</details>
+
+___
+
+<details>
+  <summary>102. Field lookup Day Week Month</summary>
+
+Day 
+Week 
+Month
+
+```python
+from ecommerce.inventory.models import ProductInventory
+from pygments import highlight
+from pygments.formatters import TerminalFormatter
+from pygments.lexers import PostgresLexer
+from sqlparse import format
+
+def sql(x):
+    formatted = format(str(x.query), reindent=True)
+    print(highlight(formatted, PostgresLexer(), TerminalFormatter()))
+
+x = ProductInventory.objects.filter(updated_at__day=9)
+x = ProductInventory.objects.filter(updated_at__day__lt=9)
+x = ProductInventory.objects.filter(updated_at__month__gt=9)
+x = ProductInventory.objects.filter(updated_at__month=9)
+x = ProductInventory.objects.filter(updated_at__month__gt=9)
+x = ProductInventory.objects.filter(updated_at__week__gt=9)
+x = ProductInventory.objects.filter(updated_at__week_day__gt=1)
+
+```
+</details>
+
+___
+
+<details>
+  <summary>Seção 17: L1: QuerySet Ordering and Limiting</summary>
+
+</details>
+
+___
+
+<details>
+  <summary>103. Section Introduction</summary>
+
+</details>
+
+___
