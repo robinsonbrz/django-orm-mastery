@@ -2389,4 +2389,88 @@ connection.queries
 ```
 </details>
 
+
 ___
+
+<details>
+  <summary>Seção 18: L1: Practical Exercises & Answers</summary>
+</details>
+
+___
+
+<details>
+  <summary>110. Section Introduction</summary>
+</details>
+
+___
+
+<details>
+  <summary>111. Section setup guide (Codebase-4)</summary>
+</details>
+
+___
+
+<details>
+  <summary>112. Reintroducing the database design and dataset</summary>
+</details>
+
+___
+
+<details>
+  <summary>113. Retrieve all sub-products for an individual product</summary>
+</details>
+
+___
+
+<details>
+  <summary>114. Retrieve a product featured image</summary>
+</details>
+
+___
+
+<details>
+  <summary>115. Retrieve all values associated to a sub-product</summary>
+</details>
+
+___
+
+<details>
+  <summary>116. Retrieve the product attributes for a given product type</summary>
+</details>
+
+___
+
+<details>
+  <summary>117. Retrieve all products associated to product attribute id:1</summary>
+</details>
+
+___
+
+<details>
+  <summary>118. Retrieve all sub-products that has less than 50 units left in stock</summary>
+</details>
+
+___
+
+<details>
+  <summary>119. Retrieve all sub-products which have been stock checked in the last month</summary>
+</details>
+
+___
+
+<details>
+  <summary>120. Retrieve all woman shoe products</summary>
+</details>
+
+___
+
+<details>
+  <summary>121. Retrieve all woman shoes by the xyz brand</summary>
+</details>
+
+___
+
+<details>
+  <summary>122. Retrieve all products associated to the xyz brand</summary>
+</details>
+
