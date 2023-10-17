@@ -1907,3 +1907,57 @@ reset_queries()
 ___
 
 
+<details>
+  <summary>89. Section introduction</summary>
+</details>
+
+___
+
+<details>
+  <summary>90. Docker introduction</summary>
+</details>
+
+___
+
+<details>
+  <summary>91. Installing Docker MacOS</summary>
+</details>
+
+___
+
+<details>
+  <summary>92. Installing Docker Desktop for Windows 10/11</summary>
+</details>
+
+___
+
+<details>
+  <summary>93. Create a Postgres Docker container</summary>
+</details>
+
+___
+
+<details>
+  <summary>94. Configuring Django to work with a PostgreSQL database</summary>
+</details>
+
+___
+
+
+<details>
+  <summary>Seção 16:L1: Field lookup Keywords Arguments</summary>
+</details>
+
+___
+
+<details>
+  <summary>95. Section Introduction</summary>
+</details>
+
+___
+
+<details>
+  <summary>96. Section setup guide (Codebase-3)</summary>
+</details>
+
+
