@@ -2106,5 +2106,43 @@ connection.queries
 
 ```
 
-### Seção 17: L1: QuerySet Ordering and Limiting
+Seção 18: L1: Practical Exercises & Answers
+
+### 110. Section Introduction
+
+
+### 111. Section setup guide (Codebase-4)
+
+
+### 112. Reintroducing the database design and dataset
+
+
+### 113. Retrieve all sub-products for an individual product
+
+
+### 114. Retrieve a product featured image
+
+
+### 115. Retrieve all values associated to a sub-product
+
+
+### 116. Retrieve the product attributes for a given product type
+
+
+### 117. Retrieve all products associated to product attribute id:1
+
+
+### 118. Retrieve all sub-products that has less than 50 units left in stock
+
+
+### 119. Retrieve all sub-products which have been stock checked in the last month
+
+
+### 120. Retrieve all woman shoe products
+
+
+### 121. Retrieve all woman shoes by the xyz brand
+
+
+### 122. Retrieve all products associated to the xyz brand
 
