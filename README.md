@@ -744,8 +744,16 @@ class ProductInventory(models.Model):
         max_length=12,
         unique=True,
     )
-    product_type = models.ForeignKey(ProductType, related_name="product_type", on_delete=models.PROTECT)
-    product = models.ForeignKey(Product, related_name="product", on_delete=models.PROTECT)
+    product_type = models.ForeignKey(
+        ProductType, 
+        related_name="product_type", 
+        on_delete=models.PROTECT
+    )
+    product = models.ForeignKey(
+        Product, 
+        related_name="product", 
+        on_delete=models.PROTECT
+    )
     brand = models.ForeignKey(
         Brand,
         related_name="brand",
@@ -968,8 +976,10 @@ connection.queries
 ```
 {
     'sql': 
-    'SELECT "inventory_brand"."brand_id", "inventory_brand"."name", "inventory_brand"."nickname" 
-        FROM "inventory_brand" LIMIT 21', 
+    'SELECT "inventory_brand"."brand_id", 
+        "inventory_brand"."name", 
+        "inventory_brand"."nickname" 
+    FROM "inventory_brand" LIMIT 21', 
         'time': '0.000'}, 
 ```
 
@@ -996,7 +1006,10 @@ from django.db import connection, transaction
 from django.db import reset_queries
 
 cursor = connection.cursor()
-cursor.execute("INSERT INTO inventory_brand (brand_id, name, nickname) VALUES (%s, %s, %s)", ['10','Reebok','nickname teste'])
+cursor.execute(
+    "INSERT INTO inventory_brand (brand_id, name, nickname) 
+    VALUES (%s, %s, %s)", ['10','Reebok','nickname teste']
+)
 
 #exibe as queries
 connection.queries
@@ -1019,11 +1032,27 @@ Brand.objects.all().delete()
 Brand.objects.create(brand_id=1,name="nike")
 
 Product.objects.all().delete()
-Product(web_id='1234',slug='nike-shoe-1',name='nike-shoe-1',description='ex2',is_active=True).save()
+Product(
+    web_id='1234',
+    slug='nike-shoe-1',
+    name='nike-shoe-1',
+    description='ex2',
+    is_active=True
+).save()
 
 ProductType.objects.create(name="shoe")
 
-ProductInventory.objects.create(sku='123',upc='123',product_type_id=1,product_id=2,brand_id=1, retail_price='10.00', store_price='10.00', sale_price='10.00', weight='100')
+ProductInventory.objects.create(
+    sku='123',
+    upc='123',
+    product_type_id=1,
+    product_id=2,
+    brand_id=1, 
+    retail_price='10.00', 
+    store_price='10.00', 
+    sale_price='10.00', 
+    weight='100'
+)
 
 ```
 </details>
@@ -1048,11 +1077,18 @@ ProductType.objects.all().delete()
 
 
 Brand.objects.create(brand_id=1,name="nike")
-Product(web_id='1234',slug='nike-shoe-1',name='nike-shoe-1',description='ex2',is_active=True).save()
+Product(
+    web_id='1234',
+    slug='nike-shoe-1',
+    name='nike-shoe-1',
+    description='ex2',
+    is_active=True
+).save()
 ProductType.objects.create(name="shoe")
 
 cursor = connection.cursor()
-cursor.execute("INSERT INTO inventory_productinventory(sku,upc,product_type_id,product_id,brand_id,is_active,is_default,retail_price,store_price,sale_price,is_on_sale,is_digital,weight,created_at,updated_at) VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)",['123','123',1,1,1,True,True,'10.00','10.00','10.00',True,True,'100','2022-06-08 13:38:15.019291','2022-06-08 13:38:15.019291'])
+cursor.execute(
+    "INSERT INTO inventory_productinventory(sku,upc,product_type_id,product_id,brand_id,is_active,is_default,retail_price,store_price,sale_price,is_on_sale,is_digital,weight,created_at,updated_at) VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)",['123','123',1,1,1,True,True,'10.00','10.00','10.00',True,True,'100','2022-06-08 13:38:15.019291','2022-06-08 13:38:15.019291'])
 
 import datetime
 datetime_object = datetime.datetime.now()
@@ -1160,12 +1196,24 @@ Product.objects.all().delete()
 ProductType.objects.all().delete()
 Category.objects.all().delete()
 
-x = Product(web_id='12345',slug='ex1',name='ex1',description='ex1',is_active=True)
+x = Product(
+    web_id='12345',
+    slug='ex1',
+    name='ex1',
+    description='ex1',
+    is_active=True
+)
 x.save()
 y = Category(name='Flip-Flops', slug='flipflops', is_active=True)
 y.save()
 
-x = Product(web_id='123456780',slug='ex100000',name='ex100000',description='ex10000',is_active=True)
+x = Product(
+    web_id='123456780',
+    slug='ex100000',
+    name='ex100000',
+    description='ex10000',
+    is_active=True
+)
 x.save()
 
 x = Product.objects.get(id=4)
@@ -1173,7 +1221,11 @@ y = Category.objects.get(id=1)
 
 x.category.add(Category.objects.get(id=1))
 
-y = Category(name='Flip-Flops2', slug='flipflops2', is_active=True)
+y = Category(
+    name='Flip-Flops2', 
+    slug='flipflops2', 
+    is_active=True
+)
 y.save()
 
 y = Category.objects.all()
