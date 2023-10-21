@@ -1749,9 +1749,13 @@ print(highlight(formatted, PostgresLexer(), TerminalFormatter()))
 
 
 
-![How to use joins graphically explained](https://terminalroot.com.br/assets/img/mysql/joins-mysql.jpg)
-
 </details>
+
+___
+
+![How to use joins graphically explained](imgs/joins-mysql.jpg)
+
+Joins Graphically explained
 
 ___
 
@@ -2433,12 +2437,27 @@ ___
 
 <details>
   <summary>111. Section setup guide (Codebase-4)</summary>
+  make build
+
+  And then populate the database
+```python
+  python manage.py demo-fixtures
+```
 </details>
+
+___
+
+![Diagrama ER](imgs/DERInventory.png)
+Diagrama ER
 
 ___
 
 <details>
   <summary>112. Reintroducing the database design and dataset</summary>
+
+
+
+
 </details>
 
 ___
@@ -2517,8 +2536,12 @@ from django.core.management import call_command
 from django.core.management.base import BaseCommand
 
 class Command(BaseCommand):
+    help = 'My custom command'
     def handle(self, *args, **options):
         call_command('makemigrations')
-
+        call_command("loaddata", "db_admin_fixture_50.json")
 
 ````
+
+O comando call_command executa python manage.py loaddata db_admin_fixture_50.json
+json que está na pasta fixtures
