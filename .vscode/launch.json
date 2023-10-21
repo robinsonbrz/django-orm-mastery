@@ -6,9 +6,9 @@
             "name": "Python: Django",
             "type": "python",
             "request": "launch",
-            "cwd": "${workspaceFolder}/secao11/",
-            "python":"${workspaceFolder}/secao11/.venv/bin/python",
-            "program": "${workspaceFolder}/secao11/manage.py",
+            "cwd": "${workspaceFolder}/secao18/",
+            "python":"${workspaceFolder}/secao18/.venv/bin/python",
+            "program": "${workspaceFolder}/secao18/manage.py",
             "args": [
                 "runserver", 
                 "0.0.0.0:8000"

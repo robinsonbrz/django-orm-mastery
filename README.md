@@ -2464,6 +2464,28 @@ ___
 
 <details>
   <summary>113. Retrieve all sub-products for an individual product</summary>
+
+Retrieve a product sub-products
+
+Returning all the products in the ProductInventory for a specific product
+
+
+```python
+from ecommerce.inventory.models import Product
+from pygments import highlight
+from pygments.formatters import TerminalFormatter
+from pygments.lexers import PostgresLexer
+from sqlparse import format
+
+def sql(x):
+    formatted = format(str(x.query), reindent=True)
+    print(highlight(formatted, PostgresLexer(), TerminalFormatter()))
+
+ProductInventory.objects.filter(product_id=1)
+
+```
+
+
 </details>
 
 ___
@@ -2545,3 +2567,9 @@ class Command(BaseCommand):
 
 O comando call_command executa python manage.py loaddata db_admin_fixture_50.json
 json que está na pasta fixtures
+
+
+
+
+
+
