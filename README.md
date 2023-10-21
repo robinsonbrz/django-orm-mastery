@@ -2501,3 +2501,24 @@ ___
   <summary>122. Retrieve all products associated to the xyz brand</summary>
 </details>
 
+
+### Criando um comando personalizado Django
+Para executá-lo:
+
+```bash
+python manage.py demo-fixtures
+
+```
+
+
+demo-fixtures.py
+```python
+from django.core.management import call_command
+from django.core.management.base import BaseCommand
+
+class Command(BaseCommand):
+    def handle(self, *args, **options):
+        call_command('makemigrations')
+
+
+````

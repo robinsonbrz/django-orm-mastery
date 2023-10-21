@@ -27,3 +27,21 @@ stop:
 	docker-compose -f docker-compose-dev.yaml stop 
 
 
+recreatedb:
+	# @echo "Cleaning up migration files in accounts, companies, and customers..."
+	# find accounts/migrations/ -type f ! -name '__init__.py' -delete
+	# find companies/migrations/ -type f ! -name '__init__.py' -delete
+	# find customers/migrations/ -type f ! -name '__init__.py' -delete
+	# @echo "Migration files cleanup completed."
+	docker exec -ti boiler_plate_db_dev psql -h localhost -U postgres password=postgres -c  "SELECT \
+	pg_terminate_backend(pg_stat_activity.pid) \
+	FROM pg_stat_activity WHERE pg_stat_activity.datname = 'ingresso_express' \
+	AND pid <> pg_backend_pid();"
+	@echo "##################_____________________________________ DB unlocked"
+	docker exec -ti boiler_plate_db_dev psql -h localhost -U postgres password=postgres -c 'DROP DATABASE ingresso_express;'
+	docker exec -ti boiler_plate_db_dev psql -h localhost -U postgres password=postgres -c '\l+'
+	docker exec -ti boiler_plate_db_dev psql -h localhost -U postgres password=postgres -c 'CREATE DATABASE ingresso_express;'
+	docker exec -ti boiler_plate_db_dev psql -h localhost -U postgres password=postgres -c '\l+'
+	@echo "##################_____________Recreation of the Database completed."
+	docker exec -ti web_ingresso_dev python manage.py makemigrations
+	docker exec -ti web_ingresso_dev python manage.py migrate
