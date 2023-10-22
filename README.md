@@ -2462,6 +2462,60 @@ ___
 
 ___
 
+```python
+class ProductInventory(models.Model):
+    sku = models.CharField(
+        max_length=20,
+        unique=True,
+    )
+    upc = models.CharField(
+        max_length=12,
+        unique=True,
+    )
+    product_type = models.ForeignKey(ProductType, related_name="product_type", on_delete=models.PROTECT)
+    product = models.ForeignKey(Product, related_name="product", on_delete=models.PROTECT)
+
+
+
+class Product(models.Model):
+    web_id = models.CharField(
+        max_length=50,
+        unique=True,
+    )
+    slug = models.SlugField(
+        max_length=255,
+    )
+    name = models.CharField(
+        max_length=255,
+    )
+    description = models.TextField(blank=True)
+    category = models.ForeignKey(
+        Category,
+        related_name="product",
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+    )
+    is_active = models.BooleanField(
+        default=False,
+    )
+    created_at = models.DateTimeField(
+        auto_now_add=True,
+        editable=False,
+    )
+    updated_at = models.DateTimeField(
+        auto_now=True,
+    )
+
+    class Meta:
+        ordering = ['id']
+
+    def __str__(self):
+        return f"{self.web_id}>{self.name}"
+
+
+```
+
 <details>
   <summary>113. Retrieve all sub-products for an individual product</summary>
 
