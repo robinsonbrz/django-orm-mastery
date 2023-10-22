@@ -2535,9 +2535,33 @@ def sql(x):
     formatted = format(str(x.query), reindent=True)
     print(highlight(formatted, PostgresLexer(), TerminalFormatter()))
 
-ProductInventory.objects.filter(product_id=1)
+
+ProductInventory.objects.filter(product_id=1)    
+
+x = ProductInventory.objects.raw(
+    "SELECT  inventory_productinventory.id,
+            inventory_productinventory.sku,
+            inventory_productinventory.upc,
+            inventory_productinventory.product_type_id,
+            inventory_productinventory.product_id,
+            inventory_productinventory.brand_id,
+            inventory_productinventory.is_active,
+            inventory_productinventory.is_default,
+            inventory_productinventory.retail_price,
+            inventory_productinventory.store_price,
+            inventory_productinventory.is_digital,
+            inventory_productinventory.weight,
+            inventory_productinventory.created_at,
+            inventory_productinventory.updated_at
+    FROM inventory_productinventory
+    WHERE inventory_productinventory.product_id = 1")
+
+print(sql(x))
 
 ```
+
+
+
 
 
 </details>
@@ -2545,7 +2569,44 @@ ProductInventory.objects.filter(product_id=1)
 ___
 
 <details>
-  <summary>114. Retrieve a product featured image</summary>
+  <summary>114. Retrieve a product featured image - 3 tables Relation</summary>
+    Tables:
+        Media
+        ProductInventory  -> product_inventory
+        Product -> product_id
+
+```python
+
+x = Media.objects.filter(product_inventory__product_id=1)
+len(x)  # returns how many objects are stored
+
+# Returns only the fields that have is_feature = 1
+x = Media.objects.filter(is_feature=True,product_inventory__product_id=1)
+len(x)
+
+
+```
+
+```sql
+SELECT inventory_media.id,
+       inventory_media.product_inventory_id,
+       inventory_media.img_url,
+       inventory_media.alt_text,
+       inventory_media.is_feature,
+       inventory_media.created_at,
+       inventory_media.updated_at
+FROM inventory_media
+INNER JOIN inventory_productinventory ON (inventory_media.product_inventory_id = inventory_productinventory.id)
+WHERE (inventory_media.is_feature
+       AND inventory_productinventory.product_id = 1)
+
+```
+
+
+
+
+
+
 </details>
 
 ___
