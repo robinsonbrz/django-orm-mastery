@@ -2581,6 +2581,7 @@ x = Media.objects.filter(product_inventory__product_id=1)
 len(x)  # returns how many objects are stored
 
 # Returns only the fields that have is_feature = 1
+x = Media.objects.filter(is_feature=True).filter(product_inventory__product_id__name="test")
 x = Media.objects.filter(is_feature=True,product_inventory__product_id=1)
 len(x)
 
@@ -2600,12 +2601,11 @@ INNER JOIN inventory_productinventory ON (inventory_media.product_inventory_id =
 WHERE (inventory_media.is_feature
        AND inventory_productinventory.product_id = 1)
 
+x = Media.objects.raw("SELECT * from inventory_media INNER JOIN inventory_productinventory ON inventory_media.product_inventory_id = inventory_productinventory.id")
+
+x = Media.objects.raw("SELECT * from inventory_media INNER JOIN inventory_productinventory ON inventory_media.product_inventory_id = inventory_productinventory.id WHERE inventory_media.is_feature=True AND inventory_productinventory.product_id=1")
+
 ```
-
-
-
-
-
 
 </details>
 
@@ -2613,6 +2613,31 @@ ___
 
 <details>
   <summary>115. Retrieve all values associated to a sub-product</summary>
+    Reverse many to many
+Retrieve all values associated to a sub-product
+    
+```python
+
+from ecommerce.inventory.models import ProductAttributeValue
+from pygments import highlight
+from pygments.formatters import TerminalFormatter
+from pygments.lexers import PostgresLexer
+from sqlparse import format
+
+def sql(x):
+    formatted = format(str(x.query), reindent=True)
+    print(highlight(formatted, PostgresLexer(), TerminalFormatter()))
+
+x = ProductAttributeValue.objects.filter(product_attribute_values__id=1)
+
+x = ProductAttributeValue.objects.raw("SELECT * FROM inventory_productattributevalue INNER JOIN inventory_productattributevalues ON inventory_productattributevalue.id = inventory_productattributevalues.attributevalues_id WHERE inventory_productattributevalues.productinventory_id=1")
+
+```
+
+
+    y = ProductAttributeValue.objects.filter(product_attribute_values__id=1)
+```
+
 </details>
 
 ___

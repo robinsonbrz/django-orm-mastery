@@ -1,5 +1,5 @@
 from django.http import HttpResponse
-from ecommerce.inventory.models import ProductInventory, Product, Media
+from ecommerce.inventory.models import ProductInventory, Product, Media, ProductAttributeValue
 from pygments import highlight
 from pygments.formatters import TerminalFormatter
 from pygments.lexers import PostgresLexer
