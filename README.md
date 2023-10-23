@@ -2631,10 +2631,6 @@ def sql(x):
 x = ProductAttributeValue.objects.filter(product_attribute_values__id=1)
 
 x = ProductAttributeValue.objects.raw("SELECT * FROM inventory_productattributevalue INNER JOIN inventory_productattributevalues ON inventory_productattributevalue.id = inventory_productattributevalues.attributevalues_id WHERE inventory_productattributevalues.productinventory_id=1")
-
-```
-
-
     y = ProductAttributeValue.objects.filter(product_attribute_values__id=1)
 ```
 
@@ -2644,6 +2640,27 @@ ___
 
 <details>
   <summary>116. Retrieve the product attributes for a given product type</summary>
+
+
+Retrieve the product attributes for a given product type
+
+```python
+from ecommerce.inventory.models import ProductAttribute
+from pygments import highlight
+from pygments.formatters import TerminalFormatter
+from pygments.lexers import PostgresLexer
+from sqlparse import format
+
+def sql(x):
+    formatted = format(str(x.query), reindent=True)
+    print(highlight(formatted, PostgresLexer(), TerminalFormatter()))
+
+x = ProductAttribute.objects.filter(product_type_attributes=1)
+
+x = ProductAttribute.objects.raw("SELECT * FROM inventory_productattribute INNER JOIN inventory_producttypeattribute ON inventory_productattribute.id = inventory_producttypeattribute.product_attribute_id WHERE inventory_producttypeattribute.product_type_id = 1")
+
+```
+
 </details>
 
 ___
