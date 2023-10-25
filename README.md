@@ -2667,7 +2667,8 @@ ___
 
 <details>
   <summary>117. Retrieve all products associated to product attribute id:1</summary>
-  Limiting QuerySets
+  
+  Retrieve all products associated to product attribute id:1
 
 ```python
 from ecommerce.inventory.models import Product
@@ -2675,32 +2676,24 @@ from pygments import highlight
 from pygments.formatters import TerminalFormatter
 from pygments.lexers import PostgresLexer
 from sqlparse import format
-from django.db import connection, reset_queries
 
 def sql(x):
     formatted = format(str(x.query), reindent=True)
     print(highlight(formatted, PostgresLexer(), TerminalFormatter()))
 
-Product.objects.all().values('id')[:1]
-Product.objects.all().values('id')[0:1]
-Product.objects.all().values('id')[0:2]
-Product.objects.all().values('id')[0]
-Product.objects.all().values('id')[1]
-Product.objects.all().values('id')[5:10]
-Product.objects.all().values('id')[6:10]
-Product.objects.all().values('id')[:10:2]
-Product.objects.all().values('id')[1:10:2]
+from ecommerce.inventory.models import Product
+from pygments import highlight
+from pygments.formatters import TerminalFormatter
+from pygments.lexers import PostgresLexer
+from sqlparse import format
 
-x = Product.objects.all()[5:10]
+def sql(x):
+    formatted = format(str(x.query), reindent=True)
+    print(highlight(formatted, PostgresLexer(), TerminalFormatter()))
 
-x = Product.objects.raw("SELECT * FROM inventory_product ORDER BY inventory_product.id ASC LIMIT 5 OFFSET 5")
+x = Product.objects.filter(product__attribute_values__product_attribute__id=1).distinct().count()
 
-x = Product.objects.all()[1:10:2] #step parameter of Python slice syntax
-
-x = Product.objects.raw("SELECT * FROM inventory_product ORDER BY inventory_product.id ASC LIMIT 9 OFFSET 1")
-
-reset_queries()
-connection.queries
+x = Product.objects.raw("SELECT * FROM inventory_product INNER JOIN inventory_productinventory ON(inventory_product.id = inventory_productinventory.product_id) INNER JOIN inventory_productattributevalues ON (inventory_productinventory.id = inventory_productattributevalues.productinventory_id) INNER JOIN inventory_productattributevalue ON (inventory_productattributevalues.attributevalues_id = inventory_productattributevalue.id) WHERE inventory_productattributevalue.product_attribute_id = 1")
 
 ```
 </details>
@@ -2709,6 +2702,23 @@ ___
 
 <details>
   <summary>118. Retrieve all sub-products that has less than 50 units left in stock</summary>
+  Retrieve all sub-products that has less than 50 units left in stock
+
+```python
+from ecommerce.inventory.models import ProductInventory
+from pygments import highlight
+from pygments.formatters import TerminalFormatter
+from pygments.lexers import PostgresLexer
+from sqlparse import format
+
+def sql(x):
+    formatted = format(str(x.query), reindent=True)
+    print(highlight(formatted, PostgresLexer(), TerminalFormatter()))
+
+x = ProductInventory.objects.filter(product_inventory__units__lte=50)
+
+x = ProductInventory.objects.raw("SELECT * FROM inventory_productinventory INNER JOIN inventory_stock ON (inventory_productinventory.id = inventory_stock.product_inventory_id) WHERE inventory_stock.units <= 50")
+
 </details>
 
 ___
