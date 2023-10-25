@@ -2773,6 +2773,24 @@ ___
 
 <details>
   <summary>121. Retrieve all woman shoes by the xyz brand</summary>
+  Retrieve all sub-products which have been stock checked in the last month
+
+```python
+from ecommerce.inventory.models import Product
+from pygments import highlight
+from pygments.formatters import TerminalFormatter
+from pygments.lexers import PostgresLexer
+from sqlparse import format
+
+def sql(x):
+    formatted = format(str(x.query), reindent=True)
+    print(highlight(formatted, PostgresLexer(), TerminalFormatter()))
+
+x = Product.objects.filter(product__attribute_values__product_attribute_id=1).count()
+x = Product.objects.filter(product__attribute_values__product_attribute_id=1).filter(product__brand_id=1)
+x = Product.objects.filter(product__attribute_values__product_attribute_id=1, product__brand_id=1).distinct()
+
+```
 </details>
 
 ___
