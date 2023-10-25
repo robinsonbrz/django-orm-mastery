@@ -2749,6 +2749,24 @@ ___
 
 <details>
   <summary>120. Retrieve all woman shoe products</summary>
+Retrieve all sub-products which have been stock checked in the last month
+
+```python
+from ecommerce.inventory.models import Product
+from pygments import highlight
+from pygments.formatters import TerminalFormatter
+from pygments.lexers import PostgresLexer
+from sqlparse import format
+
+def sql(x):
+    formatted = format(str(x.query), reindent=True)
+    print(highlight(formatted, PostgresLexer(), TerminalFormatter()))
+
+x = Product.objects.filter(product__product_type__product_type_attributes__id=1).distinct().count()
+
+x = Product.objects.raw("SELECT DISTINCT inventory_product.id FROM inventory_product INNER JOIN inventory_productinventory ON (inventory_product.id = inventory_productinventory.product_id) INNER JOIN inventory_producttype ON (inventory_productinventory.product_type_id = inventory_producttype.id) INNER JOIN inventory_producttypeattribute ON (inventory_producttype.id = inventory_producttypeattribute.product_type_id) WHERE inventory_producttypeattribute.product_attribute_id = 1")
+
+```
 </details>
 
 ___
