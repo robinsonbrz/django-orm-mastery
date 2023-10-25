@@ -2725,6 +2725,24 @@ ___
 
 <details>
   <summary>119. Retrieve all sub-products which have been stock checked in the last month</summary>
+  Retrieve all sub-products which have been stock checked in the last month
+
+```python
+from ecommerce.inventory.models import ProductInventory
+from pygments import highlight
+from pygments.formatters import TerminalFormatter
+from pygments.lexers import PostgresLexer
+from sqlparse import format
+
+def sql(x):
+    formatted = format(str(x.query), reindent=True)
+    print(highlight(formatted, PostgresLexer(), TerminalFormatter()))
+
+x = ProductInventory.objects.filter(product_inventory__last_checked__range=('2020-09-01','2022-10-10'))
+
+x = ProductInventory.objects.raw("SELECT * FROM inventory_productinventory INNER JOIN inventory_stock ON (inventory_productinventory.id = inventory_stock.product_inventory_id) WHERE inventory_stock.last_checked BETWEEN '2020-01-01 00:00:00' AND '2022-10-10 00:00:00'")
+
+```
 </details>
 
 ___
