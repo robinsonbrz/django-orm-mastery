@@ -2797,6 +2797,26 @@ ___
 
 <details>
   <summary>122. Retrieve all products associated to the xyz brand</summary>
+
+Retrieve all sub-products which have been stock checked in the last month
+
+```python
+from ecommerce.inventory.models import Product
+from pygments import highlight
+from pygments.formatters import TerminalFormatter
+from pygments.lexers import PostgresLexer
+from sqlparse import format
+
+def sql(x):
+    formatted = format(str(x.query), reindent=True)
+    print(highlight(formatted, PostgresLexer(), TerminalFormatter()))
+
+x = Product.objects.filter(product__brand_id=2)
+
+x = Product.objects.raw("SELECT * FROM inventory_product INNER JOIN inventory_productinventory ON (inventory_product.id = inventory_productinventory.product_id) WHERE inventory_productinventory.brand_id = 1")
+
+```
+
 </details>
 
 
