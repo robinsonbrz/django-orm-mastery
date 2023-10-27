@@ -2158,7 +2158,9 @@ def sql(x):
 x = ProductInventory.objects.filter(retail_price__range=(1,10))
 # will return all ProductInventory objects that were:
 # created between 2020-01-01 and 2022-10-10, inclusive.
-x = ProductInventory.objects.filter(created_at__range=('2020-01-01','2022-10-10'))
+x = ProductInventory.objects.filter(
+    created_at__range=('2020-01-01','2022-10-10')
+    )
 
 ```
 </details>
@@ -2343,7 +2345,9 @@ x = Brand.objects.all().last()
 
 x = Brand.objects.all()[:1]
 
-x = Brand.objects.raw("SELECT * FROM inventory_product ORDER BY inventory_product.id ASC LIMIT 1")
+x = Brand.objects.raw(
+    "SELECT * FROM inventory_product ORDER BY inventory_product.id ASC LIMIT 1"
+    )
 
 reset_queries()
 connection.queries
