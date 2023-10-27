@@ -2233,9 +2233,13 @@ x = Product.objects.all().order_by('?').values('id')[:10]
 
 x = Product.objects.all().order_by('id')
 
-x = Product.objects.raw("SELECT * FROM inventory_product ORDER BY inventory_product.id ASC")
+x = Product.objects.raw(
+    "SELECT * FROM inventory_product ORDER BY inventory_product.id ASC"
+)
 
-x = Product.objects.raw("SELECT * FROM inventory_product ORDER BY inventory_product.id DESC")
+x = Product.objects.raw(
+    "SELECT * FROM inventory_product ORDER BY inventory_product.id DESC"
+)
 
 reset_queries()
 connection.queries
@@ -2272,9 +2276,13 @@ x = Product.objects.all().order_by('?').values('id')[:10]
 
 x = Product.objects.all().order_by('id')
 
-x = Product.objects.raw("SELECT * FROM inventory_product ORDER BY inventory_product.id ASC")
+x = Product.objects.raw(
+    "SELECT * FROM inventory_product ORDER BY inventory_product.id ASC"
+)
 
-x = Product.objects.raw("SELECT * FROM inventory_product ORDER BY inventory_product.id DESC")
+x = Product.objects.raw(
+    "SELECT * FROM inventory_product ORDER BY inventory_product.id DESC"
+)
 
 reset_queries()
 connection.queries
