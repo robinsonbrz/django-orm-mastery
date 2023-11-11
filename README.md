@@ -113,52 +113,87 @@ And create an html file inside
 #####
 ORM can be describe as libraies
 
-##The four building blocks of Django ORM are:
+## The four building blocks of Django ORM are:
 
-###Models/Fields: 
+### Models/Fields: 
+
 Models are the core of Django ORM. 
+
 Models are defined in Python classes. 
+
 They represent the tables in your database and define the fields that are stored in those tables.
+
 The fields in a model class are defined using the Field class.
 
-###Managers: Managers are objects that provide access to the data in your models. 
+### Managers: Managers are objects that provide access to the data in your models. 
+
 They allow you to perform CRUD (create, read, update, delete) operations on your data.
+
 The objects manager is the default manager for all models. 
+
 It provides basic CRUD operations on your data. 
+
 You can also create custom managers to provide more specialized access to your data.
 
 
-###QuerySets: QuerySets are objects that represent a set of records from your database. 
+### QuerySets: QuerySets are objects that represent a set of records from your database. 
+
 They allow you to filter, sort, and slice your data.
+
 They are created using the Model.objects.all() method.
+
 You can then use filters, sorts, and slices to manipulate your data.
 
-###Backend (databases systems)
+### Backend (databases systems)
+
 Relationships: 
+
 Relationships allow you to connect different models together. 
+
 This makes it easy to represent complex relationships between data in your database.
+
 There are three types of relationships in Django ORM: one-to-one, one-to-many, and many-to-many.
 
-###Fields
+### Fields
+
 AutoField: This field automatically increments its value for each new record.
+
 BooleanField: This field stores a Boolean value.
+
 CharField: This field stores a string of text.
+
 CommaSeparatedIntegerField: This field stores a comma-separated list of integers.
+
 DateField: This field stores a date value.
+
 DateTimeField: This field stores a date and time value.
+
 DecimalField: This field stores a decimal value.
+
 EmailField: This field stores an email address.
+
 FileField: This field stores a file.
+
 FloatField: This field stores a floating-point value.
+
 ImageField: This field stores an image.
+
 IntegerField: This field stores an integer value.
+
 GenericIPAddressField: This field stores a generic IP address.
+
 OneToOneField: This field stores a one-to-one relationship to another model.
+
 PositiveIntegerField: This field stores a positive integer value.
+
 SlugField: This field stores a slug.
+
 TimeField: This field stores a time value.
+
 URLField: This field stores a URL.
+
 UUIDField: This field stores a UUID value.
+
 
 ### Model managers
 
